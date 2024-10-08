@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "775914870014",
+    "project_id": "nyewaid-aef4a",
+    "storage_bucket": "nyewaid-aef4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775914870014:android:27ad5676cb9a43bde101af",
+        "android_client_info": {
+          "package_name": "com.nyewa.id"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXHwJH7f-gKiuGF6dVXadO_AdawfkUA6Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
