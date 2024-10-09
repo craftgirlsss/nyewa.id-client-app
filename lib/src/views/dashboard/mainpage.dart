@@ -66,7 +66,7 @@ class _MainPageState extends State<MainPage> {
           unselectedLabelStyle: textStyle.defaultTextStyleMedium(),
           selectedItemColor: Colors.white,
           selectedIconTheme: const IconThemeData(
-              size: 25
+            size: 25
           ),
           unselectedItemColor: Colors.white.withOpacity(0.6),
           onTap: _onItemTapped,
