@@ -66,8 +66,8 @@ class _SearchPageState extends State<SearchPage> {
                 width: size.width,
                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20)
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20)
                 ),
                 child: Column(
                   children: [
