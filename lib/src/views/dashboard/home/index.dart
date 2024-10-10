@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:nyewadotid/src/components/utilities/utilities.dart';
 import 'package:nyewadotid/src/views/dashboard/home/search_page.dart';
 import 'package:nyewadotid/src/views/dashboard/home/service_details.dart';
 import '../../../components/global/index.dart';
@@ -18,6 +19,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final textStyle = GlobalTextStyle();
   final globalVariable = GlobalVariable();
+  final utilities = Utilities();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -75,25 +78,12 @@ class _HomePageState extends State<HomePage> {
                   width: size.width,
                   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)
                   ),
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          Container(
-                            width: 4,
-                            height: 20,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                color: globalVariable.secondaryColor
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          AutoSizeText("Shortcut", style: textStyle.defaultTextStyleBold(), minFontSize: 16, maxFontSize: 17, maxLines: 1, overflow: TextOverflow.clip)
-                        ],
-                      ),
+                      utilities.cardTitle(title: "Shortcut"),
                       const SizedBox(height: 10),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,8 +105,8 @@ class _HomePageState extends State<HomePage> {
                   width: size.width,
                   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20)
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,34 +114,21 @@ class _HomePageState extends State<HomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: [
-                              Container(
-                                width: 4,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(6),
-                                    color: globalVariable.secondaryColor
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              AutoSizeText("Get OFF", style: textStyle.defaultTextStyleBold(), minFontSize: 16, maxFontSize: 17, maxLines: 1, overflow: TextOverflow.clip)
-                            ],
-                          ),
+                          utilities.cardTitle(title: "Get OFF!"),
                           SizedBox(
-                              height: 35,
-                              child: OutlinedButton.icon(
-                                  style: OutlinedButton.styleFrom(
-                                      side: const BorderSide(
-                                          color: Colors.black12
-                                      ),
-                                      padding: const EdgeInsets.only(left: 15, right: 5)
+                            height: 35,
+                            child: OutlinedButton.icon(
+                              style: OutlinedButton.styleFrom(
+                                  side: const BorderSide(
+                                      color: Colors.black12
                                   ),
-                                  onPressed: (){},
-                                  iconAlignment: IconAlignment.end,
-                                  icon: const Icon(Icons.keyboard_arrow_right, size: 17, color: Colors.black54),
-                                  label: Text("Lihat Semua", style: textStyle.defaultTextStyleMedium(color: Colors.black45))
-                              )
+                                  padding: const EdgeInsets.only(left: 15, right: 5)
+                              ),
+                              onPressed: (){},
+                              iconAlignment: IconAlignment.end,
+                              icon: const Icon(Icons.keyboard_arrow_right, size: 17, color: Colors.black54),
+                              label: Text("Lihat Semua", style: textStyle.defaultTextStyleMedium(color: Colors.black45))
+                            )
                           )
                         ],
                       ),
@@ -184,20 +161,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          Container(
-                            width: 4,
-                            height: 20,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                color: globalVariable.secondaryColor
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          AutoSizeText("Vouchers", style: textStyle.defaultTextStyleBold(), minFontSize: 16, maxFontSize: 17, maxLines: 1, overflow: TextOverflow.clip)
-                        ],
-                      ),
+                      utilities.cardTitle(title: "Vouchers"),
                       const SizedBox(height: 10),
                       SingleChildScrollView(
                         physics: const BouncingScrollPhysics(),

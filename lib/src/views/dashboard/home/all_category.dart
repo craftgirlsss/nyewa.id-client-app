@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
+import 'package:nyewadotid/src/components/utilities/utilities.dart';
 import 'package:nyewadotid/src/views/dashboard/home/search_page.dart';
 
 class AllCategory extends StatefulWidget {
@@ -16,6 +17,7 @@ class AllCategory extends StatefulWidget {
 class _AllCategoryState extends State<AllCategory> {
   final textStyle = GlobalTextStyle();
   final globalVariable = GlobalVariable();
+  final utilities = Utilities();
 
   @override
   Widget build(BuildContext context) {
@@ -64,20 +66,7 @@ class _AllCategoryState extends State<AllCategory> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 4,
-                            height: 20,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                color: globalVariable.secondaryColor
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          AutoSizeText("Semua Kategori", style: textStyle.defaultTextStyleMedium(), minFontSize: 16, maxFontSize: 17, maxLines: 1, overflow: TextOverflow.clip)
-                        ],
-                      ),
+                      child: utilities.cardTitle(title: "Semua Kategori")
                     ),
                     GridView.count(
                         shrinkWrap: true,

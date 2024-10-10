@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
+import 'package:nyewadotid/src/components/utilities/utilities.dart';
 import 'package:nyewadotid/src/helpers/currency_formator.dart';
 
 class SearchPage extends StatefulWidget {
@@ -16,6 +17,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final textStyle = GlobalTextStyle();
   final globalVariable = GlobalVariable();
+  final utilities = Utilities();
   TextEditingController searchController = TextEditingController();
 
   @override
@@ -71,20 +73,7 @@ class _SearchPageState extends State<SearchPage> {
                 ),
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          width: 4,
-                          height: 20,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(6),
-                            color: globalVariable.secondaryColor
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        AutoSizeText("Highlight Services", style: textStyle.defaultTextStyleMedium(), minFontSize: 16, maxFontSize: 17, maxLines: 1, overflow: TextOverflow.clip)
-                      ],
-                    ),
+                    utilities.cardTitle(title: "Highlight Services"),
                     SingleChildScrollView(
                       child: Column(
                         children: [
