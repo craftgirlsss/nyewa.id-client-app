@@ -4,6 +4,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
 
+import 'bookings/index.dart';
 import 'home/index.dart';
 
 class MainPage extends StatefulWidget {
@@ -19,7 +20,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
-    const Text("Hello 2"),
+    const Bookings(),
     const Text("Hello 3"),
     const Text("Hello 4"),
   ];
@@ -38,6 +39,7 @@ class _MainPageState extends State<MainPage> {
       ),
       child: Scaffold(
         extendBody: true,
+        backgroundColor: globalVariable.backgroundColor,
         body: _widgetOptions.elementAt(_selectedIndex),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[

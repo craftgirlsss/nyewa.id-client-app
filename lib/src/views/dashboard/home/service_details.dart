@@ -287,17 +287,48 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                               ],
                             ),
                             const SizedBox(height: 10),
-                            TextFormField(
-                              minLines: 6, // any number you need (It works as the rows for the textarea)
-                              keyboardType: TextInputType.multiline,
-                              maxLines: null,
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: const BorderSide(color: Colors.black12, width: 0.5)
-                                )
-                              ),
-                            )
+                            // TextFormField(
+                            //   minLines: 6, // any number you need (It works as the rows for the textarea)
+                            //   keyboardType: TextInputType.multiline,
+                            //   maxLines: null,
+                            //   decoration: InputDecoration(
+                            //     enabledBorder: OutlineInputBorder(
+                            //       borderRadius: BorderRadius.circular(10),
+                            //       borderSide: const BorderSide(color: Colors.black12, width: 0.5)
+                            //     )
+                            //   ),
+                            // )
+                            const Text("""
+Layanan Kebersihan Bangunan - Klin Klin Cleaning
+
+Kami menyediakan layanan kebersihan profesional untuk rumah dan gedung dengan kualitas terbaik, disesuaikan dengan kebutuhan Anda. Layanan kami mencakup pembersihan mendalam yang dirancang untuk menjaga kebersihan dan kenyamanan setiap ruangan, sesuai dengan luas dan jenis bangunan.
+
+Layanan yang Kami Tawarkan:
+
+Rumah Tinggal
+Biaya kebersihan: Rp70.000 per ruangan.
+Untuk setiap area seluas 90 m², biaya tambahan sebesar Rp70.000.
+Cocok untuk rumah tinggal dengan berbagai ukuran, dari rumah kecil hingga rumah mewah.
+Gedung Perkantoran
+Biaya kebersihan: Rp70.000 per ruangan kantor.
+Setiap 90 m² dikenakan biaya tambahan Rp70.000.
+Layanan ini ideal untuk perkantoran yang membutuhkan kebersihan rutin, mulai dari ruangan kecil hingga kantor dengan banyak ruang meeting.
+Apartemen
+Biaya kebersihan: Rp70.000 per ruangan.
+Setiap tambahan area 90 m² dikenakan biaya tambahan Rp70.000.
+Layanan fleksibel sesuai dengan kebutuhan penghuni apartemen, termasuk kamar tidur, ruang tamu, dan dapur.
+Proses Layanan:
+
+Kami akan melakukan survei terhadap bangunan Anda untuk menentukan luas dan jumlah ruangan yang akan dibersihkan.
+Kami akan menghitung total biaya berdasarkan jumlah ruangan dan luas bangunan.
+Layanan kebersihan dilakukan oleh tenaga ahli yang terlatih dengan peralatan modern untuk memastikan kebersihan maksimal.
+Mengapa Memilih Kami?
+
+Tenaga Ahli Berpengalaman: Tim kami terdiri dari karyawan yang sudah terlatih di bidang kebersihan.
+Harga Transparan: Biaya berdasarkan jumlah ruangan dan luas bangunan, tanpa biaya tersembunyi.
+Kualitas Terjamin: Kami menggunakan bahan dan alat pembersih berkualitas tinggi yang ramah lingkungan.
+Hubungi kami sekarang untuk mendapatkan penawaran khusus dan konsultasi gratis terkait kebutuhan kebersihan bangunan Anda!
+                          """)
                           ],
                         ),
                       ),
