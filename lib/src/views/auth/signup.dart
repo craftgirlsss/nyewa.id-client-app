@@ -18,7 +18,6 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   GlobalTextStyle textStyle = GlobalTextStyle();
-  GlobalVariable globalVariable = GlobalVariable();
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -77,9 +76,9 @@ class _SignUpState extends State<SignUp> {
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: globalVariable.secondaryColor)),
-                              label: Text("Nama Lengkap", style: textStyle.defaultTextStyleMedium(color: globalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: Icon(EvaIcons.person_outline, color: globalVariable.secondaryColor)
+                              enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
+                              label: Text("Nama Lengkap", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
+                              prefixIcon: const Icon(EvaIcons.person_outline, color: GlobalVariable.secondaryColor)
                             ),
                           ),
                         ),
@@ -88,9 +87,9 @@ class _SignUpState extends State<SignUp> {
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: globalVariable.secondaryColor)),
-                              label: Text("Nomor HP", style: textStyle.defaultTextStyleMedium(color: globalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: Icon(Bootstrap.phone, color: globalVariable.secondaryColor)
+                              enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
+                              label: Text("Nomor HP", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
+                              prefixIcon: const Icon(Bootstrap.phone, color: GlobalVariable.secondaryColor)
                             ),
                           ),
                         ),
@@ -99,9 +98,9 @@ class _SignUpState extends State<SignUp> {
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: globalVariable.secondaryColor)),
-                              label: Text("Email", style: textStyle.defaultTextStyleMedium(color: globalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: Icon(EvaIcons.email_outline, color: globalVariable.secondaryColor)
+                              enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
+                              label: Text("Email", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
+                              prefixIcon: const Icon(EvaIcons.email_outline, color: GlobalVariable.secondaryColor)
                             ),
                           ),
                         ),
@@ -110,9 +109,9 @@ class _SignUpState extends State<SignUp> {
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: globalVariable.secondaryColor)),
-                              label: Text("Password", style: textStyle.defaultTextStyleMedium(color: globalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: Icon(EvaIcons.lock_outline, color: globalVariable.secondaryColor)
+                              enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
+                              label: Text("Password", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
+                              prefixIcon: const Icon(EvaIcons.lock_outline, color: GlobalVariable.secondaryColor)
                             ),
                           ),
                         ),
@@ -127,7 +126,7 @@ class _SignUpState extends State<SignUp> {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            backgroundColor: globalVariable.secondaryColor,
+                            backgroundColor: GlobalVariable.secondaryColor,
                           ),
                           onPressed: (){
                             Get.to(() => const OtpPage());
@@ -159,7 +158,7 @@ class _SignUpState extends State<SignUp> {
         ),
         bottomNavigationBar: CupertinoButton(
           padding: EdgeInsets.zero,
-          child: AutoSizeText("Sudah punya akun? Sign in", style: textStyle.defaultTextStyleMedium(color: globalVariable.secondaryColor), minFontSize: 16, maxFontSize: 18), onPressed: (){
+          child: AutoSizeText("Sudah punya akun? Sign in", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor), minFontSize: 16, maxFontSize: 18), onPressed: (){
           Get.to(() => const ForgotPassword());
         })
       ),

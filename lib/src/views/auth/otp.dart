@@ -3,7 +3,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:quiver/async.dart';
 import '../../components/global/index.dart';
@@ -18,7 +17,7 @@ class OtpPage extends StatefulWidget {
 
 class _OtpPageState extends State<OtpPage> {
   GlobalTextStyle textStyle = GlobalTextStyle();
-  GlobalVariable globalVariable = GlobalVariable();
+
   StreamController<ErrorAnimationType>? errorController;
   // AuthenticationController authenticationController = Get.find();
   bool hasError = false;
@@ -109,10 +108,10 @@ class _OtpPageState extends State<OtpPage> {
                             shape: PinCodeFieldShape.underline,
                             fieldHeight: 50,
                             fieldWidth: 40,
-                            selectedColor: globalVariable.secondaryColor,
+                            selectedColor: GlobalVariable.secondaryColor,
                             activeFillColor: Colors.white,
-                            activeColor: globalVariable.secondaryColor,
-                            inactiveColor: globalVariable.secondaryColor.withOpacity(0.5)
+                            activeColor: GlobalVariable.secondaryColor,
+                            inactiveColor: GlobalVariable.secondaryColor.withOpacity(0.5)
                           ),
                           cursorColor: Colors.black.withOpacity(0.5),
                           animationDuration: const Duration(milliseconds: 300),
@@ -149,7 +148,7 @@ class _OtpPageState extends State<OtpPage> {
                       children: [
                         const Text("Tidak menerima kode OTP?"),
                         const SizedBox(width: 7),
-                        TextButton(style: TextButton.styleFrom(padding: EdgeInsets.zero), onPressed: (){}, child: Text("Kirim ulang", style: textStyle.defaultTextStyleBold(color: globalVariable.secondaryColor)))
+                        TextButton(style: TextButton.styleFrom(padding: EdgeInsets.zero), onPressed: (){}, child: Text("Kirim ulang", style: textStyle.defaultTextStyleBold(color: GlobalVariable.secondaryColor)))
                       ],
                     ),
                     SizedBox(
@@ -157,7 +156,7 @@ class _OtpPageState extends State<OtpPage> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
-                          backgroundColor: globalVariable.secondaryColor,
+                          backgroundColor: GlobalVariable.secondaryColor,
                         ),
                         onPressed: (){
 

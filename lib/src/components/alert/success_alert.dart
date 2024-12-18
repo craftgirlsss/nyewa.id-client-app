@@ -4,14 +4,13 @@ import 'package:nyewadotid/src/components/global/index.dart';
 
 alertSuccess(BuildContext context, {required String? title, required String? content, Function()? onOK}){
   // final size = MediaQuery.of(context).size;
-  final globalVariable = GlobalVariable();
   return AwesomeDialog(
     context: context,
     dialogType: DialogType.success,
     padding: const EdgeInsets.symmetric(horizontal: 10),
     btnOkText: "OK",
-    borderSide: BorderSide(
-      color: globalVariable.secondaryColor,
+    borderSide: const BorderSide(
+      color: GlobalVariable.secondaryColor,
       width: 1,
     ),
     // width: size.width,

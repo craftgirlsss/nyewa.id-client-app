@@ -4,12 +4,11 @@ import 'package:nyewadotid/src/components/global/index.dart';
 
 alertFailed(BuildContext context, {required String? title, required String? content, Function()? onOK, String? textButtonOK}){
   final size = MediaQuery.of(context).size;
-  final globalVariable = GlobalVariable();
   return AwesomeDialog(
     context: context,
     dialogType: DialogType.error,
-    borderSide: BorderSide(
-      color: globalVariable.secondaryColor,
+    borderSide: const BorderSide(
+      color: GlobalVariable.secondaryColor,
       width: 1,
     ),
     width: size.width,

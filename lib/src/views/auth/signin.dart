@@ -18,7 +18,6 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   GlobalTextStyle textStyle = GlobalTextStyle();
-  GlobalVariable globalVariable = GlobalVariable();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -72,9 +71,9 @@ class _SignInState extends State<SignIn> {
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: globalVariable.secondaryColor)),
-                              label: Text("Email", style: textStyle.defaultTextStyleMedium(color: globalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: Icon(Icons.email, color: globalVariable.secondaryColor)
+                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
+                              label: Text("Email", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
+                              prefixIcon: Icon(Icons.email, color: GlobalVariable.secondaryColor)
                             ),
                           ),
                         ),
@@ -83,9 +82,9 @@ class _SignInState extends State<SignIn> {
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: globalVariable.secondaryColor)),
-                              label: Text("Password", style: textStyle.defaultTextStyleMedium(color: globalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: Icon(Icons.lock, color: globalVariable.secondaryColor)
+                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
+                              label: Text("Password", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
+                              prefixIcon: Icon(Icons.lock, color: GlobalVariable.secondaryColor)
                             ),
                           ),
                         ),
@@ -100,7 +99,7 @@ class _SignInState extends State<SignIn> {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            backgroundColor: globalVariable.secondaryColor,
+                            backgroundColor: GlobalVariable.secondaryColor,
                           ),
                           onPressed: (){
                             Get.to(() => const MainPage());
@@ -131,7 +130,7 @@ class _SignInState extends State<SignIn> {
         ),
         bottomNavigationBar: CupertinoButton(
           padding: EdgeInsets.zero,
-          child: AutoSizeText("Lupa Password? Reset", style: textStyle.defaultTextStyleMedium(color: globalVariable.secondaryColor), minFontSize: 16, maxFontSize: 18), onPressed: (){
+          child: AutoSizeText("Lupa Password? Reset", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor), minFontSize: 16, maxFontSize: 18), onPressed: (){
           Get.to(() => const ForgotPassword());
         })
       ),

@@ -18,7 +18,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final textStyle = GlobalTextStyle();
-  final globalVariable = GlobalVariable();
   final utilities = Utilities();
 
   @override
@@ -29,155 +28,161 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: Colors.grey.shade100,
         body: SafeArea(
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Column(
-              children: [
-                // Search Box
-                Container(
-                  width: size.width,
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  decoration: BoxDecoration(
+          child: RefreshIndicator(
+            backgroundColor: GlobalVariable.secondaryColor,
+            color: Colors.white,
+            triggerMode: RefreshIndicatorTriggerMode.anywhere,
+            onRefresh: () async {},
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: Column(
+                children: [
+                  // Search Box
+                  Container(
+                    width: size.width,
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20)
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Hello, Putra 👋", style: textStyle.defaultTextStyleMedium(fontSize: 17, color: Colors.black54)),
+                        AutoSizeText("Apa yang anda butuhkan hari ini?", maxFontSize: 30, minFontSize: 25, maxLines: 2, style: textStyle.defaultTextStyleBold()),
+                        const SizedBox(height: 10),
+                        TextField(
+                          readOnly: true,
+                          // onTap: () => Get.to(() => const SearchPage()),
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SearchPage())),
+                          onSubmitted: (value) => debugPrint(value),
+                          decoration: InputDecoration(
+                            suffixIcon: const Icon(Iconsax.search_normal_outline, color: Colors.black38),
+                            hintText: "Cari yang anda inginkan...",
+                            hintStyle: textStyle.defaultTextStyleMedium(color: Colors.black38),
+                            filled: true,
+                            fillColor: Colors.grey.shade50,
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(13),
+                              borderSide: const BorderSide(color: Colors.black12, width: 0.5),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(13),
+                              borderSide: const BorderSide(color: Colors.black12, width: 0.5),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  // Category Box
+                  Container(
+                    width: size.width,
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                    decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20)
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Hello, Putra 👋", style: textStyle.defaultTextStyleMedium(fontSize: 17, color: Colors.black54)),
-                      AutoSizeText("Apa yang anda butuhkan hari ini?", maxFontSize: 30, minFontSize: 25, maxLines: 2, style: textStyle.defaultTextStyleBold()),
-                      const SizedBox(height: 10),
-                      TextField(
-                        readOnly: true,
-                        // onTap: () => Get.to(() => const SearchPage()),
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SearchPage())),
-                        onSubmitted: (value) => debugPrint(value),
-                        decoration: InputDecoration(
-                          suffixIcon: const Icon(Iconsax.search_normal_outline, color: Colors.black38),
-                          hintText: "Cari yang anda inginkan...",
-                          hintStyle: textStyle.defaultTextStyleMedium(color: Colors.black38),
-                          filled: true,
-                          fillColor: Colors.grey.shade50,
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(13),
-                            borderSide: const BorderSide(color: Colors.black12, width: 0.5),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(13),
-                            borderSide: const BorderSide(color: Colors.black12, width: 0.5),
-                          ),
+                    ),
+                    child: Column(
+                      children: [
+                        utilities.cardTitle(title: "Shortcut"),
+                        const SizedBox(height: 10),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            categoryItem(iconData: MingCute.air_condition_open_fill, title: "Service AC"),
+                            categoryItem(iconData: FontAwesome.tent_solid, color: Colors.blue, title: "Tenda Pernikahan"),
+                            categoryItem(iconData: MingCute.broom_fill, color: Colors.deepOrangeAccent, title: "Home Clean"),
+                            categoryItem(iconData: FontAwesome.arrow_right_solid, color: Colors.deepPurpleAccent, title: "Lihat Semua", onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AllCategory()))),
+                          ],
                         ),
-                      )
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 15),
-                // Category Box
-                Container(
-                  width: size.width,
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20)
-                  ),
-                  child: Column(
-                    children: [
-                      utilities.cardTitle(title: "Shortcut"),
-                      const SizedBox(height: 10),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          categoryItem(iconData: MingCute.air_condition_open_fill, title: "Service AC"),
-                          categoryItem(iconData: FontAwesome.tent_solid, color: Colors.blue, title: "Tenda Pernikahan"),
-                          categoryItem(iconData: MingCute.broom_fill, color: Colors.deepOrangeAccent, title: "Home Clean"),
-                          categoryItem(iconData: FontAwesome.arrow_right_solid, color: Colors.deepPurpleAccent, title: "Lihat Semua", onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AllCategory()))),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 15),
-
-                // Shortcut GET OFF Item
-                Container(
-                  width: size.width,
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20)
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          utilities.cardTitle(title: "Get OFF!"),
-                          SizedBox(
-                            height: 35,
-                            child: OutlinedButton.icon(
-                              style: OutlinedButton.styleFrom(
-                                  side: const BorderSide(
-                                      color: Colors.black12
-                                  ),
-                                  padding: const EdgeInsets.only(left: 15, right: 5)
-                              ),
-                              onPressed: (){},
-                              iconAlignment: IconAlignment.end,
-                              icon: const Icon(Icons.keyboard_arrow_right, size: 17, color: Colors.black54),
-                              label: Text("Lihat Semua", style: textStyle.defaultTextStyleMedium(color: Colors.black45))
+                  const SizedBox(height: 15),
+            
+                  // Shortcut GET OFF Item
+                  Container(
+                    width: size.width,
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20)
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            utilities.cardTitle(title: "Get OFF!"),
+                            SizedBox(
+                              height: 35,
+                              child: OutlinedButton.icon(
+                                style: OutlinedButton.styleFrom(
+                                    side: const BorderSide(
+                                        color: Colors.black12
+                                    ),
+                                    padding: const EdgeInsets.only(left: 15, right: 5)
+                                ),
+                                onPressed: (){},
+                                iconAlignment: IconAlignment.end,
+                                icon: const Icon(Icons.keyboard_arrow_right, size: 17, color: Colors.black54),
+                                label: Text("Lihat Semua", style: textStyle.defaultTextStyleMedium(color: Colors.black45))
+                              )
                             )
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            cardItem(urlImage: 'assets/images/cleaning.jpg', priceOff: 10, title: "Klin Klin Cleaning", onPressed: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const ServiceDetails(serviceName: "Klin Klin Cleaning", urlImage: 'assets/images/cleaning.jpg')));
-                            }),
-                            cardItem(urlImage: 'assets/images/sound.jpg', priceOff: 5, title: "Ireng Sound System"),
-                            cardItem(urlImage: 'assets/images/tenda.jpg', priceOff: 8, title: "Raja Tenda"),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-
-                // Voucher Box
-                Container(
-                  width: size.width,
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)
-                  ),
-                  child: Column(
-                    children: [
-                      utilities.cardTitle(title: "Vouchers"),
-                      const SizedBox(height: 10),
-                      SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            couponCard(onPressed: (){}),
-                            couponCard(onPressed: (){}, color: Colors.greenAccent.shade100),
-                            couponCard(onPressed: (){}, color: Colors.lightBlueAccent.shade100),
-                          ],
+                        const SizedBox(height: 10),
+                        SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              cardItem(urlImage: 'assets/images/cleaning.jpg', priceOff: 10, title: "Klin Klin Cleaning", onPressed: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const ServiceDetails(serviceName: "Klin Klin Cleaning", urlImage: 'assets/images/cleaning.jpg')));
+                              }),
+                              cardItem(urlImage: 'assets/images/sound.jpg', priceOff: 5, title: "Ireng Sound System"),
+                              cardItem(urlImage: 'assets/images/tenda.jpg', priceOff: 8, title: "Raja Tenda"),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 20),
+            
+                  // Voucher Box
+                  Container(
+                    width: size.width,
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20)
+                    ),
+                    child: Column(
+                      children: [
+                        utilities.cardTitle(title: "Vouchers"),
+                        const SizedBox(height: 10),
+                        SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              couponCard(onPressed: (){}),
+                              couponCard(onPressed: (){}, color: Colors.greenAccent.shade100),
+                              couponCard(onPressed: (){}, color: Colors.lightBlueAccent.shade100),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -214,7 +219,7 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 2),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: globalVariable.secondaryColor
+                          color: GlobalVariable.secondaryColor
                         ),
                         child: Text("$priceOff% OFF", style: textStyle.defaultTextStyleMedium(color: Colors.white)),
                       )
@@ -269,7 +274,7 @@ class _HomePageState extends State<HomePage> {
             minWidth: size.width / 1.6
         ),
         decoration: BoxDecoration(
-          color: color ?? globalVariable.secondaryColor.withOpacity(0.7),
+          color: color ?? GlobalVariable.secondaryColor.withOpacity(0.7),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
@@ -292,7 +297,7 @@ class _HomePageState extends State<HomePage> {
                   backgroundColor: Colors.white,
                   elevation: 0,
                 ),
-                onPressed: onPressed, label: Text("Ambil Voucher", style: textStyle.defaultTextStyleMedium(color: color ?? globalVariable.secondaryColor.withOpacity(0.7))), icon: Icon(Icons.keyboard_arrow_right, color: color ?? globalVariable.secondaryColor.withOpacity(0.7)), iconAlignment: IconAlignment.end)
+                onPressed: onPressed, label: Text("Ambil Voucher", style: textStyle.defaultTextStyleMedium(color: color ?? GlobalVariable.secondaryColor.withOpacity(0.7))), icon: Icon(Icons.keyboard_arrow_right, color: color ?? GlobalVariable.secondaryColor.withOpacity(0.7)), iconAlignment: IconAlignment.end)
           ],
         ),
       ),

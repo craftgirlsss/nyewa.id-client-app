@@ -13,7 +13,6 @@ class ForgotPassword extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   GlobalTextStyle textStyle = GlobalTextStyle();
-  GlobalVariable globalVariable = GlobalVariable();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -67,9 +66,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: globalVariable.secondaryColor)),
-                              label: Text("Email", style: textStyle.defaultTextStyleMedium(color: globalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: Icon(Icons.email, color: globalVariable.secondaryColor)
+                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
+                              label: Text("Email", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
+                              prefixIcon: Icon(Icons.email, color: GlobalVariable.secondaryColor)
                             ),
                           ),
                         ),
@@ -82,7 +81,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
-                        backgroundColor: globalVariable.secondaryColor,
+                        backgroundColor: GlobalVariable.secondaryColor,
                       ),
                       onPressed: (){
                         Get.back();

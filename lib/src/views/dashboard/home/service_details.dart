@@ -5,9 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:nyewadotid/src/components/button/cupertino_button.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
+import 'package:nyewadotid/src/components/utilities/utilities.dart';
+import 'package:nyewadotid/src/controllers/utilities/utilities_controller.dart';
 import 'package:nyewadotid/src/helpers/currency_formator.dart';
+import 'package:nyewadotid/src/views/dashboard/home/location_selector.dart';
 
 class ServiceDetails extends StatefulWidget {
   final String? serviceName;
@@ -24,12 +28,13 @@ class _ServiceDetailsState extends State<ServiceDetails> {
   var unit = 1.obs;
   var room = 1.obs;
   var price = 0.obs;
+  String? lokasiTujuan;
   var priceUnit = 50000.obs;
   var priceRoom = 20000.obs;
   var selectedHome = true.obs;
   var isLoading = false.obs;
   final textStyle = GlobalTextStyle();
-  final globalVariable = GlobalVariable();
+  LocationController locationController = Get.put(LocationController());
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +44,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
     price.value = priceUnit.value + priceRoom.value;
     if(kDebugMode) print(priceUnit.value);
     if(kDebugMode) print(priceRoom.value);
-    return AnnotatedRegion(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light,
-        systemNavigationBarContrastEnforced: true,
-        systemNavigationBarIconBrightness: Brightness.dark,
-        systemNavigationBarColor: Colors.transparent
-      ),
+    return Utilities.defaultAnnotatedRegion(
       child: GestureDetector(
         onTap: (){
           FocusManager.instance.primaryFocus?.unfocus();
@@ -81,7 +79,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: globalVariable.secondaryColor
+                          color: GlobalVariable.secondaryColor
                         ),
                         child: Row(
                           children: [
@@ -113,7 +111,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                   height: 20,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(6),
-                                    color: globalVariable.secondaryColor
+                                    color: GlobalVariable.secondaryColor
                                   ),
                                 ),
                                 const SizedBox(width: 8),
@@ -132,9 +130,9 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                       () => OutlinedButton(
                                         style: OutlinedButton.styleFrom(
                                           side: BorderSide(
-                                            color: selectedHome.value ? globalVariable.secondaryColor : Colors.black38
+                                            color: selectedHome.value ? GlobalVariable.secondaryColor : Colors.black38
                                           ),
-                                          backgroundColor: selectedHome.value ? globalVariable.secondaryColor : Colors.transparent,
+                                          backgroundColor: selectedHome.value ? GlobalVariable.secondaryColor : Colors.transparent,
                                           padding: const EdgeInsets.all(20),
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(20),
@@ -156,9 +154,9 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                     () => OutlinedButton(
                                         style: OutlinedButton.styleFrom(
                                           side: BorderSide(
-                                            color: selectedHome.value ? Colors.black38 : globalVariable.secondaryColor
+                                            color: selectedHome.value ? Colors.black38 : GlobalVariable.secondaryColor
                                           ),
-                                          backgroundColor: selectedHome.value ? Colors.transparent : globalVariable.secondaryColor,
+                                          backgroundColor: selectedHome.value ? Colors.transparent : GlobalVariable.secondaryColor,
                                           padding: const EdgeInsets.all(20),
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(20),
@@ -204,10 +202,10 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                             price.value = priceUnit.value - priceRoom.value;
                                           }
                                         },
-                                        child: const Icon(AntDesign.minus_circle_fill, size: 26)
+                                        child: Icon(AntDesign.minus_circle_fill, size: 26, color: GlobalVariable.secondaryColor)
                                       ),
                                     ),
-                                    Obx(() => Text(unit.value.toString(), style: textStyle.defaultTextStyleMedium())),
+                                    Obx(() => Text(unit.value.toString(), style: textStyle.defaultTextStyleBold(color: GlobalVariable.secondaryColor))),
                                     Obx(() => CupertinoButton(
                                       padding: EdgeInsets.zero,
                                       onPressed: isLoading.value ? (){} : (){
@@ -215,7 +213,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                           priceUnit.value = priceUnit.value * unit.value;
                                           price.value = priceUnit.value + priceRoom.value;
                                       },
-                                      child: const Icon(AntDesign.plus_circle_fill, size: 26)
+                                      child: Icon(AntDesign.plus_circle_fill, size: 26, color: GlobalVariable.secondaryColor)
                                       ),
                                     ),
                                   ],
@@ -238,10 +236,10 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                           price.value = priceUnit.value + priceRoom.value;
                                         }
                                       },
-                                      child: const Icon(AntDesign.minus_circle_fill, size: 26)
+                                      child: Icon(AntDesign.minus_circle_fill, size: 26, color: GlobalVariable.secondaryColor)
                                       ),
                                     ),
-                                    Obx(() => Text(room.value.toString(), style: textStyle.defaultTextStyleMedium())),
+                                    Obx(() => Text(room.value.toString(), style: textStyle.defaultTextStyleBold(color: GlobalVariable.secondaryColor))),
                                     Obx(() => CupertinoButton(
                                         padding: EdgeInsets.zero,
                                         onPressed: isLoading.value ? (){} : (){
@@ -249,12 +247,22 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                           priceRoom.value = priceRoom.value * room.value;
                                           price.value = priceUnit.value + priceRoom.value;
                                         },
-                                        child: const Icon(AntDesign.plus_circle_fill, size: 26)
+                                        child: Icon(AntDesign.plus_circle_fill, size: 26, color: GlobalVariable.secondaryColor)
                                       ),
                                     ),
                                   ],
                                 )
                               ],
+                            ),
+                            const Divider(color: Colors.black12),
+                            Obx(() => Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  AutoSizeText("Lokasi Tujuan", style: textStyle.defaultTextStyleMedium(), maxFontSize: 17, minFontSize: 16),
+                                  const SizedBox(width: 20),
+                                  locationController.myLocationSelected.value == "" ? kDefaultCupertinoTextButton(onPressed: (){Get.to(() => const LocationSelector());}, title: "Pilih Lokasi Saya", textColor: GlobalVariable.secondaryColor) : Expanded(child: CupertinoButton(padding: EdgeInsets.zero, onPressed: (){Get.to(() => const LocationSelector());}, child: Text(locationController.myLocationSelected.value, maxLines: 1, textAlign: TextAlign.end, style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor))))
+                                ],
+                              ),
                             )
                           ],
                         ),
@@ -278,7 +286,7 @@ class _ServiceDetailsState extends State<ServiceDetails> {
                                   height: 20,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(6),
-                                    color: globalVariable.secondaryColor
+                                    color: GlobalVariable.secondaryColor
                                   ),
                                 ),
                                 const SizedBox(width: 8),
@@ -378,7 +386,7 @@ Hubungi kami sekarang untuk mendapatkan penawaran khusus dan konsultasi gratis t
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
-                          backgroundColor: globalVariable.secondaryColor,
+                          backgroundColor: GlobalVariable.secondaryColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)
                           )

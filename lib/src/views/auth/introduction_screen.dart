@@ -15,7 +15,6 @@ class IntroductionScreen extends StatefulWidget {
 
 class _IntroductionScreenState extends State<IntroductionScreen> {
   GlobalTextStyle textStyle = GlobalTextStyle();
-  GlobalVariable globalVariable = GlobalVariable();
   var signupSelected = true.obs;
 
   @override
@@ -57,7 +56,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AutoSizeText("Welcome to", style: textStyle.defaultTextStyleBold(), maxLines: 1, minFontSize: 40, maxFontSize: 45, overflow: TextOverflow.fade),
-                          AutoSizeText("nyewa.id", style: textStyle.defaultTextStyleBold(color: globalVariable.secondaryColor), maxLines: 2, minFontSize: 45, maxFontSize: 50, overflow: TextOverflow.fade),
+                          AutoSizeText("nyewa.id", style: textStyle.defaultTextStyleBold(color: GlobalVariable.secondaryColor), maxLines: 2, minFontSize: 45, maxFontSize: 50, overflow: TextOverflow.fade),
                           const SizedBox(height: 10),
                           AutoSizeText("Cari jasa layanan yang anda butuhkan dengan mudah dimana saja", style: textStyle.defaultTextStyleMedium(color: Colors.black45), overflow: TextOverflow.clip, maxFontSize: 17, minFontSize: 14)
                         ],
@@ -71,37 +70,33 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                       child: Row(
                         children: [
                           Expanded(
-                            child: Obx(() => ElevatedButton(
+                            child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 side: BorderSide(
-                                  color: signupSelected.value ? globalVariable.secondaryColor : Colors.black12
+                                  color: GlobalVariable.secondaryColor
                                 ),
                                 elevation: 0,
-                                backgroundColor: signupSelected.value ? globalVariable.secondaryColor : Colors.white,
+                                backgroundColor: GlobalVariable.secondaryColor
                               ),
                               onPressed: (){
-                                signupSelected.value = true;
                                 Get.to(() => const SignUp());
                               }, child: Text("Sign up", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: signupSelected.value ? Colors.white : Colors.black))
-                              ),
                             )
                           ),
                           const SizedBox(width: 5),
                           Expanded(
-                            child: Obx(() => ElevatedButton(
+                            child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                side: BorderSide(
-                                  color: signupSelected.value ? Colors.black12 : globalVariable.secondaryColor
+                                side: const BorderSide(
+                                  color: Colors.black12
                                 ),
                                 elevation: 0,
-                                backgroundColor: signupSelected.value ? Colors.white : globalVariable.secondaryColor,
+                                backgroundColor: Colors.white
                               ),
                               onPressed: (){
-                                signupSelected.value = false;
                                 Get.to(() => const SignIn());
                               }, child: Text("Sign in", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: signupSelected.value ? Colors.black : Colors.white))
-                              ),
-                            )
+                            ),
                           )
                         ],
                       ),

@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
-
 import 'bookings/index.dart';
 import 'home/index.dart';
 
@@ -15,7 +14,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final globalVariable = GlobalVariable();
   final textStyle = GlobalTextStyle();
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
@@ -35,11 +33,11 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
-        systemNavigationBarColor: globalVariable.secondaryColor
+        systemNavigationBarColor: GlobalVariable.secondaryColor
       ),
       child: Scaffold(
         extendBody: true,
-        backgroundColor: globalVariable.backgroundColor,
+        backgroundColor: GlobalVariable.backgroundColor,
         body: _widgetOptions.elementAt(_selectedIndex),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
@@ -63,7 +61,7 @@ class _MainPageState extends State<MainPage> {
           currentIndex: _selectedIndex,
           elevation: 0,
           type: BottomNavigationBarType.fixed,
-          backgroundColor: globalVariable.secondaryColor,
+          backgroundColor: GlobalVariable.secondaryColor,
           selectedLabelStyle: textStyle.defaultTextStyleMedium(fontSize: 14),
           unselectedLabelStyle: textStyle.defaultTextStyleMedium(),
           selectedItemColor: Colors.white,
