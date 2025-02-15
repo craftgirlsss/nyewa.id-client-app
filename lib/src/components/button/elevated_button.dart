@@ -20,7 +20,7 @@ ElevatedButton kDefaultElevatedButtonIcon({String? title, Function()? onPressed,
       backgroundColor: backgroundColor ?? GlobalVariable.secondaryColor
     ),
     onPressed: onPressed,
-    icon: Icon(icon ?? Icons.apple, color: textColor ?? Colors.white),
+    icon: Icon(icon ?? Icons.apple, color: textColor ?? Colors.white, size: 20),
     label: Text(title ?? "OK", style: textStyle.defaultTextStyleBold(color: textColor ?? Colors.white))
   );
 }

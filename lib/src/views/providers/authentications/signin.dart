@@ -3,10 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:nyewadotid/src/components/button/cupertino_button.dart';
+import 'package:nyewadotid/src/components/button/elevated_button.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
+import 'package:nyewadotid/src/components/textformfield/underline_textformfield.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
-import 'package:nyewadotid/src/views/customers/authentications/forgot.dart';
 import 'package:nyewadotid/src/views/customers/dashboards/mainpage.dart';
+import 'package:nyewadotid/src/views/providers/authentications/forgot.dart';
+import 'package:nyewadotid/src/views/providers/authentications/signup.dart';
 
 class SignInProvider extends StatefulWidget {
   const SignInProvider({super.key});
@@ -40,7 +44,7 @@ class _SignInProviderState extends State<SignInProvider> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          title: const Text("Sign in"),
+          title: const Text("Sign in Provider"),
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -58,33 +62,33 @@ class _SignInProviderState extends State<SignInProvider> {
                         Image.asset('assets/images/world2.jpg', width: orientation == Orientation.portrait ? size.width / 2 : size.width / 7),
                         AutoSizeText("Nyewa jasa bisa semudah ini", style: textStyle.defaultTextStyleBold(), maxLines: 1, minFontSize: 20, maxFontSize: 25, overflow: TextOverflow.fade),
                         const SizedBox(height: 10),
-                        AutoSizeText("Masuk dengan akun yang telah anda daftarkan sebelumnya", style: textStyle.defaultTextStyleMedium(color: Colors.black45), overflow: TextOverflow.clip, maxFontSize: 17, minFontSize: 14, textAlign: TextAlign.center,)
+                        AutoSizeText("Masuk dengan akun Provider yang telah anda daftarkan sebelumnya", style: textStyle.defaultTextStyleMedium(color: Colors.black45), overflow: TextOverflow.clip, maxFontSize: 17, minFontSize: 14, textAlign: TextAlign.center,)
                       ],
                     ),
                   ),
+                  const SizedBox(height: 10),
                   Container(
                     color: Colors.white,
                     child: Column(
                       children: [
                         SizedBox(
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
-                              label: Text("Email", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: const Icon(Icons.email, color: GlobalVariable.secondaryColor)
-                            ),
+                          child: UnderlineTextformfield(
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            label: "Email",
+                            iconData: EvaIcons.email_outline,
                           ),
                         ),
                         const SizedBox(height: 15),
                         SizedBox(
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
-                              label: Text("Password", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: Icon(Icons.lock, color: GlobalVariable.secondaryColor)
-                            ),
+                          child: UnderlineTextformfield(
+                            controller: passwordController,
+                            isPasswordField: true,
+                            keyboardType: TextInputType.visiblePassword,
+                            label: "Kata Sandi",
+                            iconData: EvaIcons.lock_outline,
                           ),
                         ),
                       ],
@@ -95,31 +99,38 @@ class _SignInProviderState extends State<SignInProvider> {
                     children: [
                       SizedBox(
                         width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            backgroundColor: GlobalVariable.secondaryColor,
-                          ),
+                        child: kDefaultElevatedButton(
                           onPressed: (){
                             Get.to(() => const MainPage());
-                          }, child: Text("Sign in", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: Colors.white))
-                        ),
+                          },
+                          title: "Sign In"
+                        )
                       ),
                       const SizedBox(height: 7),
                       SizedBox(
                         width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
-                        child: ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            backgroundColor: Colors.blue,
-                          ),
-                          onPressed: (){
-
-                          },
-                          icon: const Icon(Bootstrap.google, color: Colors.white, size: 20,),
-                          label: Text("Sign in with Google", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: Colors.white))
-                        ),
+                        child: kDefaultElevatedButtonIcon(
+                          backgroundColor: Colors.blue,
+                          icon: Bootstrap.google,
+                          title: "Sign in with Google",
+                          onPressed: (){}
+                        )
                       ),
+                      const SizedBox(height: 7),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Belum punya akun?", style: textStyle.defaultTextStyleMedium(fontSize: 14, color: Colors.black54)),
+                          const SizedBox(width: 5),
+                          kDefaultCupertinoTextButton(
+                            onPressed: (){
+                              Get.to(() => const SignUpProvider());
+                            },
+                            textColor: GlobalVariable.secondaryColor,
+                            title: "Buat Akun"
+                          )
+                        ],
+                      )
                     ],
                   ),
                 ],
@@ -127,11 +138,20 @@ class _SignInProviderState extends State<SignInProvider> {
             ),
           ),
         ),
-        bottomNavigationBar: CupertinoButton(
-          padding: EdgeInsets.zero,
-          child: AutoSizeText("Lupa Password? Reset", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor), minFontSize: 16, maxFontSize: 18), onPressed: (){
-          Get.to(() => const ForgotPasswordCustomer());
-        })
+        bottomNavigationBar: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Lupa Kata Sandi?", style: textStyle.defaultTextStyleMedium(fontSize: 14, color: Colors.black54)),
+            const SizedBox(width: 5),
+            kDefaultCupertinoTextButton(
+              onPressed: (){
+                Get.to(() => const ForgotPasswordProvider());
+              },
+              textColor: GlobalVariable.secondaryColor,
+              title: "Reset"
+            )
+          ],
+        )
       ),
     );
   }

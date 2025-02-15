@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:nyewadotid/src/components/alert/info_alert.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
+import 'package:nyewadotid/src/views/customers/authentications/signin.dart';
+import 'package:nyewadotid/src/views/providers/authentications/signin.dart';
 
 class IntroductionScreen extends StatefulWidget {
   const IntroductionScreen({super.key});
@@ -58,15 +60,11 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                           AutoSizeText("Welcome to", style: textStyle.defaultTextStyleBold(), maxLines: 1, minFontSize: 40, maxFontSize: 45, overflow: TextOverflow.fade),
                           AutoSizeText("nyewa.id", style: textStyle.defaultTextStyleBold(color: GlobalVariable.secondaryColor), maxLines: 2, minFontSize: 45, maxFontSize: 50, overflow: TextOverflow.fade),
                           const SizedBox(height: 10),
-                          AutoSizeText("Cari jasa layanan yang anda butuhkan dengan mudah dimana saja", style: textStyle.defaultTextStyleMedium(color: Colors.black45), overflow: TextOverflow.clip, maxFontSize: 17, minFontSize: 14)
+                          AutoSizeText("Cari jasa atau menjadi bagian dari penyedia layanan dengan mudah.", style: textStyle.defaultTextStyleMedium(color: Colors.black45), overflow: TextOverflow.clip, maxFontSize: 17, minFontSize: 14)
                         ],
                       ),
                     ),
-                    Container(
-                      decoration: const BoxDecoration(
-                        // borderRadius: BorderRadius.circular(30),
-                        // border: Border.all(color: Colors.black45)
-                      ),
+                    SizedBox(
                       child: Row(
                         children: [
                           Expanded(
@@ -79,7 +77,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                                 backgroundColor: GlobalVariable.secondaryColor
                               ),
                               onPressed: (){
-
+                                Get.to(() => const SignInCustomer());
                               }, child: Text("Client", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: signupSelected.value ? Colors.white : Colors.black))
                             )
                           ),
@@ -94,8 +92,9 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                                 backgroundColor: Colors.white
                               ),
                               onPressed: (){
-
-                              }, child: Text("Provider", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: signupSelected.value ? Colors.black : Colors.white))
+                                Get.to(() => const SignInProvider());
+                              }, 
+                              child: Text("Provider", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: signupSelected.value ? Colors.black : Colors.white))
                             ),
                           )
                         ],

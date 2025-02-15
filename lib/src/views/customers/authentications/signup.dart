@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:nyewadotid/src/components/button/cupertino_button.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
+import 'package:nyewadotid/src/components/textformfield/underline_textformfield.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
-import 'package:nyewadotid/src/views/customers/authentications/forgot.dart';
 import 'package:nyewadotid/src/views/customers/authentications/otp.dart';
 
 class SignUpCustomer extends StatefulWidget {
@@ -44,7 +44,7 @@ class _SignUpCustomerState extends State<SignUpCustomer> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          title: const Text("Sign up"),
+          title: const Text("Sign up Customer"),
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -62,7 +62,7 @@ class _SignUpCustomerState extends State<SignUpCustomer> {
                         Image.asset('assets/images/world2.jpg', width: orientation == Orientation.portrait ? size.width / 2 : size.width / 7),
                         AutoSizeText("Nyewa jasa bisa semudah ini", style: textStyle.defaultTextStyleBold(), maxLines: 1, minFontSize: 20, maxFontSize: 25, overflow: TextOverflow.fade),
                         const SizedBox(height: 10),
-                        AutoSizeText("Masuk dengan akun yang telah anda daftarkan sebelumnya", style: textStyle.defaultTextStyleMedium(color: Colors.black45), overflow: TextOverflow.clip, maxFontSize: 17, minFontSize: 14, textAlign: TextAlign.center,)
+                        AutoSizeText("Daftar sebagai customer. Mohon inputkan semua field yang dibutuhkan.", style: textStyle.defaultTextStyleMedium(color: Colors.black45), overflow: TextOverflow.clip, maxFontSize: 17, minFontSize: 14, textAlign: TextAlign.center,)
                       ],
                     ),
                   ),
@@ -73,45 +73,42 @@ class _SignUpCustomerState extends State<SignUpCustomer> {
                       children: [
                         SizedBox(
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
-                              label: Text("Nama Lengkap", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: const Icon(EvaIcons.person_outline, color: GlobalVariable.secondaryColor)
-                            ),
+                          child: UnderlineTextformfield(
+                            controller: nameController,
+                            keyboardType: TextInputType.name,
+                            label: "Nama Lengkap",
+                            iconData: EvaIcons.person_outline,
                           ),
                         ),
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 5),
                         SizedBox(
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
-                              label: Text("Nomor HP", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: const Icon(Bootstrap.phone, color: GlobalVariable.secondaryColor)
-                            ),
+                          child: UnderlineTextformfield(
+                            controller: phoneController,
+                            keyboardType: TextInputType.phone,
+                            label: "Nomor HP / WhatsApp",
+                            iconData: Bootstrap.phone,
                           ),
                         ),
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 5),
                         SizedBox(
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
-                              label: Text("Email", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: const Icon(EvaIcons.email_outline, color: GlobalVariable.secondaryColor)
-                            ),
+                          child: UnderlineTextformfield(
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            label: "Email",
+                            iconData: EvaIcons.email_outline,
                           ),
                         ),
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 5),
                         SizedBox(
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
-                              label: Text("Password", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: const Icon(EvaIcons.lock_outline, color: GlobalVariable.secondaryColor)
-                            ),
+                          child: UnderlineTextformfield(
+                            controller: passwordController,
+                            isPasswordField: true,
+                            keyboardType: TextInputType.visiblePassword,
+                            label: "Kata Sandi",
+                            iconData: EvaIcons.lock_outline,
                           ),
                         ),
                       ],
@@ -128,7 +125,9 @@ class _SignUpCustomerState extends State<SignUpCustomer> {
                             backgroundColor: GlobalVariable.secondaryColor,
                           ),
                           onPressed: (){
-                            Get.to(() => const OtpPageCustomer());
+                            if(_formKey.currentState!.validate()){
+                              Get.to(() => const OtpPageCustomer());
+                            }
                           }, child: Text("Sign up", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: Colors.white))
                         ),
                       ),
@@ -140,9 +139,7 @@ class _SignUpCustomerState extends State<SignUpCustomer> {
                             elevation: 0,
                             backgroundColor: Colors.blue,
                           ),
-                          onPressed: (){
-
-                          },
+                          onPressed: (){},
                           icon: const Icon(Bootstrap.google, color: Colors.white, size: 20,),
                           label: Text("Sign up with Google", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: Colors.white)
                           )
@@ -155,11 +152,20 @@ class _SignUpCustomerState extends State<SignUpCustomer> {
             ),
           ),
         ),
-        bottomNavigationBar: CupertinoButton(
-          padding: EdgeInsets.zero,
-          child: AutoSizeText("Sudah punya akun? Sign in", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor), minFontSize: 16, maxFontSize: 18), onPressed: (){
-          Get.to(() => const ForgotPasswordCustomer());
-        })
+        bottomNavigationBar: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Sudah Punya Akun?", style: textStyle.defaultTextStyleMedium(fontSize: 14, color: Colors.black54)),
+            const SizedBox(width: 5),
+            kDefaultCupertinoTextButton(
+              onPressed: (){
+                Navigator.pop(context);
+              },
+              textColor: GlobalVariable.secondaryColor,
+              title: "Sign In"
+            )
+          ],
+        )
       ),
     );
   }

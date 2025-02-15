@@ -3,6 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nyewadotid/src/components/button/cupertino_button.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -66,7 +67,7 @@ class _OtpPageProviderState extends State<OtpPageProvider> {
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.white,
-            title: const Text("Konfirmasi Kode OTP"),
+            title: const Text("Konfirmasi Kode OTP Provider"),
           ),
           body: Stack(
             children: [
@@ -146,11 +147,16 @@ class _OtpPageProviderState extends State<OtpPageProvider> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Tidak menerima kode OTP?"),
-                        const SizedBox(width: 7),
-                        TextButton(style: TextButton.styleFrom(padding: EdgeInsets.zero), onPressed: (){}, child: Text("Kirim ulang", style: textStyle.defaultTextStyleBold(color: GlobalVariable.secondaryColor)))
+                        Text("Tidak menerima kode OTP?", style: textStyle.defaultTextStyleMedium(fontSize: 14, color: Colors.black54)),
+                        const SizedBox(width: 5),
+                        kDefaultCupertinoTextButton(
+                          onPressed: (){},
+                          textColor: GlobalVariable.secondaryColor,
+                          title: "Kirim Ulang"
+                        )
                       ],
                     ),
+                    const SizedBox(height: 10),
                     SizedBox(
                       width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
                       child: ElevatedButton(

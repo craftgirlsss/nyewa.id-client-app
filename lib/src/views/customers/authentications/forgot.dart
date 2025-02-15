@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
+import 'package:nyewadotid/src/components/textformfield/underline_textformfield.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
 
 class ForgotPasswordCustomer extends StatefulWidget {
@@ -35,7 +37,7 @@ class _ForgotPasswordCustomerState extends State<ForgotPasswordCustomer> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          title: const Text("Forgot Password"),
+          title: const Text("Lupa Kata Sandi Customer"),
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -64,12 +66,11 @@ class _ForgotPasswordCustomerState extends State<ForgotPasswordCustomer> {
                       children: [
                         SizedBox(
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
-                              label: Text("Email", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: Icon(Icons.email, color: GlobalVariable.secondaryColor)
-                            ),
+                          child: UnderlineTextformfield(
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            label: "Email",
+                            iconData: EvaIcons.email_outline,
                           ),
                         ),
                       ],

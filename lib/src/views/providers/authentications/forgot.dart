@@ -1,17 +1,19 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
+import 'package:nyewadotid/src/components/textformfield/underline_textformfield.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
 
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({super.key});
+class ForgotPasswordProvider extends StatefulWidget {
+  const ForgotPasswordProvider({super.key});
 
   @override
-  State<ForgotPassword> createState() => _ForgotPasswordState();
+  State<ForgotPasswordProvider> createState() => _ForgotPasswordProviderState();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
+class _ForgotPasswordProviderState extends State<ForgotPasswordProvider> {
   GlobalTextStyle textStyle = GlobalTextStyle();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -35,7 +37,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          title: const Text("Forgot Password"),
+          title: const Text("Lupa Kata Sandi Provider"),
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -64,12 +66,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       children: [
                         SizedBox(
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
-                              label: Text("Email", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: Icon(Icons.email, color: GlobalVariable.secondaryColor)
-                            ),
+                          child: UnderlineTextformfield(
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            label: "Email",
+                            iconData: EvaIcons.email_outline,
                           ),
                         ),
                       ],

@@ -1,8 +1,9 @@
-import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:nyewadotid/src/components/button/cupertino_button.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:quiver/async.dart';
 import '../../../components/global/index.dart';
@@ -18,13 +19,13 @@ class OtpPageCustomer extends StatefulWidget {
 class _OtpPageCustomerState extends State<OtpPageCustomer> {
   GlobalTextStyle textStyle = GlobalTextStyle();
 
-  StreamController<ErrorAnimationType>? errorController;
+  // StreamController<ErrorAnimationType>? errorController;
   // AuthenticationController authenticationController = Get.find();
   bool hasError = false;
   String currentText = "";
   TextEditingController otpController = TextEditingController();
 
-  formattedTime({required int timeInSecond}) {
+  String formattedTime({required int timeInSecond}) {
     int sec = timeInSecond % 60;
     int min = (timeInSecond / 60).floor();
     String minute = min.toString().length <= 1 ? "0$min" : "$min";
@@ -34,14 +35,14 @@ class _OtpPageCustomerState extends State<OtpPageCustomer> {
 
   @override
   void initState() {
-    errorController = StreamController<ErrorAnimationType>();
+    // errorController = StreamController<ErrorAnimationType>();
     super.initState();
-    startTimer();
+    // startTimer();
   }
 
   @override
   void dispose() {
-    errorController?.close();
+    // errorController?.close();
     otpController.dispose();
     super.dispose();
   }
@@ -66,7 +67,7 @@ class _OtpPageCustomerState extends State<OtpPageCustomer> {
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.white,
-            title: const Text("Konfirmasi Kode OTP"),
+            title: const Text("Konfirmasi Kode OTP Customer"),
           ),
           body: Stack(
             children: [
@@ -116,7 +117,6 @@ class _OtpPageCustomerState extends State<OtpPageCustomer> {
                           cursorColor: Colors.black.withOpacity(0.5),
                           animationDuration: const Duration(milliseconds: 300),
                           // enableActiveFill: true,
-                          errorAnimationController: errorController,
                           controller: otpController,
                           keyboardType: TextInputType.number,
                           boxShadows: const [
@@ -146,11 +146,18 @@ class _OtpPageCustomerState extends State<OtpPageCustomer> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Tidak menerima kode OTP?"),
-                        const SizedBox(width: 7),
-                        TextButton(style: TextButton.styleFrom(padding: EdgeInsets.zero), onPressed: (){}, child: Text("Kirim ulang", style: textStyle.defaultTextStyleBold(color: GlobalVariable.secondaryColor)))
+                        Text("Tidak menerima kode OTP?", style: textStyle.defaultTextStyleMedium(fontSize: 14, color: Colors.black54)),
+                        const SizedBox(width: 5),
+                        kDefaultCupertinoTextButton(
+                          onPressed: (){
+                            startTimer();
+                          },
+                          textColor: GlobalVariable.secondaryColor,
+                          title: "Kirim Ulang"
+                        )
                       ],
                     ),
+                    const SizedBox(height: 10),
                     SizedBox(
                       width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
                       child: ElevatedButton(
@@ -158,9 +165,7 @@ class _OtpPageCustomerState extends State<OtpPageCustomer> {
                           elevation: 0,
                           backgroundColor: GlobalVariable.secondaryColor,
                         ),
-                        onPressed: (){
-
-                        },
+                        onPressed: (){},
                         child: Text("Konfirmasi", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: Colors.white))
                       ),
                     ),
@@ -175,21 +180,19 @@ class _OtpPageCustomerState extends State<OtpPageCustomer> {
     );
   }
 
-  int start = 60;
-  int current = 60;
+  RxInt start = 60.obs;
+  RxInt current = 60.obs;
 
   void startTimer() {
     CountdownTimer countDownTimer = CountdownTimer(
-      Duration(seconds: start),
+      Duration(seconds: start.value),
       const Duration(seconds: 1),
     );
 
     var sub = countDownTimer.listen(null);
     sub.onData((duration) {
       if(mounted){
-        setState(() {
-          current = start - duration.elapsed.inSeconds;
-        });
+        current.value = start.value - duration.elapsed.inSeconds;
       }
     });
 
