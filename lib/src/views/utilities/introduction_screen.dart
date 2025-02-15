@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyewadotid/src/components/alert/info_alert.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
-import 'package:nyewadotid/src/views/auth/signin.dart';
-import 'package:nyewadotid/src/views/auth/signup.dart';
 
 class IntroductionScreen extends StatefulWidget {
   const IntroductionScreen({super.key});
@@ -72,15 +72,15 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                           Expanded(
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                side: BorderSide(
+                                side: const BorderSide(
                                   color: GlobalVariable.secondaryColor
                                 ),
                                 elevation: 0,
                                 backgroundColor: GlobalVariable.secondaryColor
                               ),
                               onPressed: (){
-                                Get.to(() => const SignUp());
-                              }, child: Text("Sign up", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: signupSelected.value ? Colors.white : Colors.black))
+
+                              }, child: Text("Client", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: signupSelected.value ? Colors.white : Colors.black))
                             )
                           ),
                           const SizedBox(width: 5),
@@ -94,8 +94,8 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                                 backgroundColor: Colors.white
                               ),
                               onPressed: (){
-                                Get.to(() => const SignIn());
-                              }, child: Text("Sign in", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: signupSelected.value ? Colors.black : Colors.white))
+
+                              }, child: Text("Provider", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: signupSelected.value ? Colors.black : Colors.white))
                             ),
                           )
                         ],
@@ -103,6 +103,19 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                     ),
                   ],
                 ),
+              )
+            ),
+            Positioned(
+              top: 30,
+              right: 0,
+              child: CupertinoButton(
+                onPressed: (){
+                  alertInfo(context, title: "Informasi", content: """
+1. Client untuk login calon customer yang dimana untuk mencari dan penyedia layanan jasa.
+2. Customer untuk login calon penyedia jasa yang dimana untuk mengelola bisnis jasa.
+""", withCancelButton: false);
+                },
+                child: const Icon(CupertinoIcons.info, color: GlobalVariable.secondaryColor),
               )
             )
           ],

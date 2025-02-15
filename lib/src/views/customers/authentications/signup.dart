@@ -5,18 +5,17 @@ import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
-import 'package:nyewadotid/src/views/auth/forgot.dart';
+import 'package:nyewadotid/src/views/customers/authentications/forgot.dart';
+import 'package:nyewadotid/src/views/customers/authentications/otp.dart';
 
-import 'otp.dart';
-
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+class SignUpCustomer extends StatefulWidget {
+  const SignUpCustomer({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<SignUpCustomer> createState() => _SignUpCustomerState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _SignUpCustomerState extends State<SignUpCustomer> {
   GlobalTextStyle textStyle = GlobalTextStyle();
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -129,7 +128,7 @@ class _SignUpState extends State<SignUp> {
                             backgroundColor: GlobalVariable.secondaryColor,
                           ),
                           onPressed: (){
-                            Get.to(() => const OtpPage());
+                            Get.to(() => const OtpPageCustomer());
                           }, child: Text("Sign up", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: Colors.white))
                         ),
                       ),
@@ -159,7 +158,7 @@ class _SignUpState extends State<SignUp> {
         bottomNavigationBar: CupertinoButton(
           padding: EdgeInsets.zero,
           child: AutoSizeText("Sudah punya akun? Sign in", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor), minFontSize: 16, maxFontSize: 18), onPressed: (){
-          Get.to(() => const ForgotPassword());
+          Get.to(() => const ForgotPasswordCustomer());
         })
       ),
     );

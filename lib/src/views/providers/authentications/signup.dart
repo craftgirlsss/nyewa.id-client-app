@@ -5,19 +5,20 @@ import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
-import 'package:nyewadotid/src/views/auth/forgot.dart';
+import 'package:nyewadotid/src/views/customers/authentications/forgot.dart';
+import 'package:nyewadotid/src/views/providers/authentications/otp.dart';
 
-import '../dashboard/mainpage.dart';
-
-class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+class SignUpProvider extends StatefulWidget {
+  const SignUpProvider({super.key});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<SignUpProvider> createState() => _SignUpProviderState();
 }
 
-class _SignInState extends State<SignIn> {
+class _SignUpProviderState extends State<SignUpProvider> {
   GlobalTextStyle textStyle = GlobalTextStyle();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -27,9 +28,11 @@ class _SignInState extends State<SignIn> {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    nameController.dispose();
+    phoneController.dispose();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -41,7 +44,7 @@ class _SignInState extends State<SignIn> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          title: const Text("Sign in"),
+          title: const Text("Sign up"),
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -63,6 +66,7 @@ class _SignInState extends State<SignIn> {
                       ],
                     ),
                   ),
+                  const SizedBox(height: 10),
                   Container(
                     color: Colors.white,
                     child: Column(
@@ -71,9 +75,9 @@ class _SignInState extends State<SignIn> {
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
-                              label: Text("Email", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: Icon(Icons.email, color: GlobalVariable.secondaryColor)
+                              enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
+                              label: Text("Nama Lengkap", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
+                              prefixIcon: const Icon(EvaIcons.person_outline, color: GlobalVariable.secondaryColor)
                             ),
                           ),
                         ),
@@ -82,9 +86,31 @@ class _SignInState extends State<SignIn> {
                           width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
+                              enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
+                              label: Text("Nomor HP", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
+                              prefixIcon: const Icon(Bootstrap.phone, color: GlobalVariable.secondaryColor)
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        SizedBox(
+                          width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
+                              label: Text("Email", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
+                              prefixIcon: const Icon(EvaIcons.email_outline, color: GlobalVariable.secondaryColor)
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        SizedBox(
+                          width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: GlobalVariable.secondaryColor)),
                               label: Text("Password", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor, fontSize: 16)),
-                              prefixIcon: Icon(Icons.lock, color: GlobalVariable.secondaryColor)
+                              prefixIcon: const Icon(EvaIcons.lock_outline, color: GlobalVariable.secondaryColor)
                             ),
                           ),
                         ),
@@ -102,8 +128,8 @@ class _SignInState extends State<SignIn> {
                             backgroundColor: GlobalVariable.secondaryColor,
                           ),
                           onPressed: (){
-                            Get.to(() => const MainPage());
-                          }, child: Text("Sign in", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: Colors.white))
+                            Get.to(() => const OtpPageProvider());
+                          }, child: Text("Sign up", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: Colors.white))
                         ),
                       ),
                       const SizedBox(height: 7),
@@ -118,7 +144,8 @@ class _SignInState extends State<SignIn> {
 
                           },
                           icon: const Icon(Bootstrap.google, color: Colors.white, size: 20,),
-                          label: Text("Sign in with Google", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: Colors.white))
+                          label: Text("Sign up with Google", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: Colors.white)
+                          )
                         ),
                       ),
                     ],
@@ -130,8 +157,8 @@ class _SignInState extends State<SignIn> {
         ),
         bottomNavigationBar: CupertinoButton(
           padding: EdgeInsets.zero,
-          child: AutoSizeText("Lupa Password? Reset", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor), minFontSize: 16, maxFontSize: 18), onPressed: (){
-          Get.to(() => const ForgotPassword());
+          child: AutoSizeText("Sudah punya akun? Sign in", style: textStyle.defaultTextStyleMedium(color: GlobalVariable.secondaryColor), minFontSize: 16, maxFontSize: 18), onPressed: (){
+          Get.to(() => const ForgotPasswordCustomer());
         })
       ),
     );

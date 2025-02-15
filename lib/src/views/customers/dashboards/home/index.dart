@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:nyewadotid/src/components/utilities/utilities.dart';
-import 'package:nyewadotid/src/views/dashboard/home/search_page.dart';
-import 'package:nyewadotid/src/views/dashboard/home/service_details.dart';
-import '../../../components/global/index.dart';
-import '../../../components/textsyle/index.dart';
+import 'package:nyewadotid/src/views/customers/dashboards/home/search_page.dart';
+import 'package:nyewadotid/src/views/customers/dashboards/home/service_details.dart';
+import '../../../../components/global/index.dart';
+import '../../../../components/textsyle/index.dart';
 import 'all_category.dart';
 
 class HomePage extends StatefulWidget {

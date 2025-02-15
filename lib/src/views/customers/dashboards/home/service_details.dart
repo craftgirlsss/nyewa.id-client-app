@@ -2,7 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:nyewadotid/src/components/button/cupertino_button.dart';
@@ -11,7 +10,7 @@ import 'package:nyewadotid/src/components/textsyle/index.dart';
 import 'package:nyewadotid/src/components/utilities/utilities.dart';
 import 'package:nyewadotid/src/controllers/utilities/utilities_controller.dart';
 import 'package:nyewadotid/src/helpers/currency_formator.dart';
-import 'package:nyewadotid/src/views/dashboard/home/location_selector.dart';
+import 'package:nyewadotid/src/views/customers/dashboards/home/location_selector.dart';
 
 class ServiceDetails extends StatefulWidget {
   final String? serviceName;

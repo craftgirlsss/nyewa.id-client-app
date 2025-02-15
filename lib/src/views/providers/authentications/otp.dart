@@ -3,19 +3,19 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nyewadotid/src/components/global/index.dart';
+import 'package:nyewadotid/src/components/textsyle/index.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:quiver/async.dart';
-import '../../components/global/index.dart';
-import '../../components/textsyle/index.dart';
 
-class OtpPage extends StatefulWidget {
-  const OtpPage({super.key});
+class OtpPageProvider extends StatefulWidget {
+  const OtpPageProvider({super.key});
 
   @override
-  State<OtpPage> createState() => _OtpPageState();
+  State<OtpPageProvider> createState() => _OtpPageProviderState();
 }
 
-class _OtpPageState extends State<OtpPage> {
+class _OtpPageProviderState extends State<OtpPageProvider> {
   GlobalTextStyle textStyle = GlobalTextStyle();
 
   StreamController<ErrorAnimationType>? errorController;

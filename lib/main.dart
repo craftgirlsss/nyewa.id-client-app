@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
-import 'package:nyewadotid/src/views/auth/introduction_screen.dart';
+import 'package:nyewadotid/src/views/utilities/introduction_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

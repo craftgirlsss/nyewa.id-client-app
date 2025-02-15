@@ -6,7 +6,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
 import 'package:nyewadotid/src/components/utilities/utilities.dart';
-import 'package:nyewadotid/src/views/dashboard/home/search_page.dart';
+import 'package:nyewadotid/src/views/customers/dashboards/home/search_page.dart';
 
 class AllCategory extends StatefulWidget {
   const AllCategory({super.key});
