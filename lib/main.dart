@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             color: GlobalVariable.secondaryColor,
           )
         ),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         useMaterial3: true,
       ),
       home: const IntroductionScreen(),
