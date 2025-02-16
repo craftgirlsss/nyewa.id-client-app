@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:nyewadotid/src/components/button/cupertino_button.dart';
-import 'package:nyewadotid/src/components/button/elevated_button.dart';
+import 'package:nyewadotid/src/components/button/material_button.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textformfield/underline_textformfield.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
+import 'package:nyewadotid/src/controllers/providers/auth_controller.dart';
 import 'package:nyewadotid/src/views/providers/authentications/forgot.dart';
 import 'package:nyewadotid/src/views/providers/authentications/signup.dart';
 import 'package:nyewadotid/src/views/providers/dashboards/utilities/checking_profile_providers.dart';
@@ -20,6 +21,7 @@ class SignInProvider extends StatefulWidget {
 
 class _SignInProviderState extends State<SignInProvider> {
   GlobalTextStyle textStyle = GlobalTextStyle();
+  ProviderAuthController authController = Get.put(ProviderAuthController());
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();

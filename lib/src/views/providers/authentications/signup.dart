@@ -1,11 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:nyewadotid/src/components/alert/privacy_and_policy.dart';
 import 'package:nyewadotid/src/components/button/cupertino_button.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textformfield/underline_textformfield.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
+import 'package:nyewadotid/src/controllers/providers/auth_controller.dart';
 import 'package:nyewadotid/src/views/providers/authentications/otp.dart';
 
 class SignUpProvider extends StatefulWidget {
@@ -17,11 +20,15 @@ class SignUpProvider extends StatefulWidget {
 
 class _SignUpProviderState extends State<SignUpProvider> {
   GlobalTextStyle textStyle = GlobalTextStyle();
+  ProviderAuthController authController = Get.find();
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  RxBool privacyPolicy = false.obs;
+  RxBool isLoading = false.obs;
 
 
   @override
@@ -111,6 +118,29 @@ class _SignUpProviderState extends State<SignUpProvider> {
                             iconData: EvaIcons.lock_outline,
                           ),
                         ),
+                        const SizedBox(height: 10),
+                        // Kebijakan privasi
+                        Row(
+                          children: [
+                            Obx(() => CupertinoCheckbox(
+                              activeColor: GlobalVariable.secondaryColor,
+                                value: privacyPolicy.value, 
+                                onChanged: (bool? value){
+                                  privacyPolicy.value = !privacyPolicy.value;
+                                }
+                              ),
+                            ).paddingZero,
+                            Obx(() => 
+                              kDefaultCupertinoTextButton(
+                                onPressed: isLoading.value ? null : () {
+                                  showPrivacy(context, wasChecked: privacyPolicy.value);
+                                },
+                                title: "Privacy and Policy",
+                                textColor: GlobalVariable.secondaryColor
+                              ),
+                            )
+                          ],
+                        )
                       ],
                     ),
                   ),

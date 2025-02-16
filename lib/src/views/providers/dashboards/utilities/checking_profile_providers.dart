@@ -1,11 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:nyewadotid/src/components/button/elevated_button.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:nyewadotid/src/components/button/cupertino_button.dart';
+import 'package:nyewadotid/src/components/button/material_button.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/showbottomsheet/cupertino_bottom_sheet.dart';
+import 'package:nyewadotid/src/components/showbottomsheet/material_bottom_sheet.dart';
 import 'package:nyewadotid/src/components/textformfield/underline_textformfield.dart';
+import 'package:nyewadotid/src/controllers/providers/auth_controller.dart';
 import 'package:nyewadotid/src/helpers/generate_random_token.dart';
 import 'package:nyewadotid/src/helpers/main_global_variable.dart';
 
@@ -22,6 +28,7 @@ class _CheckingProfileProvidersState extends State<CheckingProfileProviders> {
   RxList jamOperasional = [].obs;
   RxInt selectedJenisBisnisIndex = 0.obs;
   RxBool isLoading = false.obs;
+  ProviderAuthController providerAuthController = Get.find();
   TextEditingController namaUsaha = TextEditingController();
   TextEditingController jenisUsaha = TextEditingController();
   TextEditingController tipeBiaya = TextEditingController();
@@ -177,6 +184,134 @@ class _CheckingProfileProvidersState extends State<CheckingProfileProviders> {
                       iconData: MingCute.coupon_line,
                     ),
                   ),
+                  const SizedBox(height: 5),
+                  Obx(() {
+                    if(providerAuthController.listBusinessPhoto.length == 0){
+                      return kDefaultCupertinoTextButton(
+                        onPressed: (){
+                          materialBottomSheet(context,
+                            widget: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Spacer(),
+                                      const Expanded(child: Text("Tambah Foto Bisnis", style: TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.center)),
+                                      Expanded(
+                                        child: kDefaultCupertinoTextButton(
+                                          onPressed: (){
+                                            Navigator.pop(context);
+                                          },
+                                          title: "Batal",
+                                          textColor: GlobalVariable.secondaryColor
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                const Divider(),
+                                ListTile(
+                                  leading: const Icon(CupertinoIcons.camera),
+                                  title: const Text("Ambil dari Kamera"),
+                                  onTap: (){
+                                    pickImageFromGallery();
+                                  },
+                                ),
+                                ListTile(
+                                  leading: const Icon(CupertinoIcons.photo_on_rectangle),
+                                  title: const Text("Ambil dari Galeri"),
+                                  onTap: (){
+                                    pickImageFromGallery();
+                                  },
+                                ),
+                              ],
+                            )
+                          );
+                        },
+                        title: "Tambah Foto Usaha",
+                        textColor: GlobalVariable.secondaryColor
+                      );
+                    }else{
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: List.generate(providerAuthController.listBusinessPhoto.length + 1, (i) {
+                            if(i != providerAuthController.listBusinessPhoto.length){
+                              return Container(
+                                width: 100,
+                                height: 100,
+                                clipBehavior: Clip.hardEdge,
+                                margin: const EdgeInsets.symmetric(horizontal: 5),
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  border: Border.all(color: Colors.black45),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Image.file(File(providerAuthController.listBusinessPhoto[i]), fit: BoxFit.cover,),
+                              );
+                            }
+                            return kDefaultCupertinoChild(
+                              onPressed: (){
+                                materialBottomSheet(context,
+                                  widget: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const Spacer(),
+                                            const Expanded(child: Text("Tambah Foto Bisnis", style: TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.center)),
+                                            Expanded(
+                                              child: kDefaultCupertinoTextButton(
+                                                onPressed: (){
+                                                  Navigator.pop(context);
+                                                },
+                                                title: "Batal",
+                                                textColor: GlobalVariable.secondaryColor
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      const Divider(),
+                                      ListTile(
+                                        leading: const Icon(CupertinoIcons.camera),
+                                        title: const Text("Ambil dari Kamera"),
+                                        onTap: (){
+                                          pickImageFromGallery();
+                                        },
+                                      ),
+                                      ListTile(
+                                        leading: const Icon(CupertinoIcons.photo_on_rectangle),
+                                        title: const Text("Ambil dari Galeri"),
+                                        onTap: (){
+                                          pickImageFromGallery();
+                                        },
+                                      ),
+                                    ],
+                                  )
+                                );
+                              },
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                padding: const EdgeInsets.all(15),
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  border: Border.all(color: Colors.black26),
+                                  borderRadius: BorderRadius.circular(5)
+                                ),
+                                child: const Icon(Icons.add_a_photo, color: Colors.black45),
+                              ),
+                            );
+                          }),
+                        ),
+                      );
+                    }
+                  }),
                 ],
               ),
             ),
@@ -184,16 +319,59 @@ class _CheckingProfileProvidersState extends State<CheckingProfileProviders> {
         ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-          child: kDefaultElevatedButton(
-            onPressed: (){
-              if(_formKey.currentState!.validate()){
-
-              }
-            },
-            title: "Submit"
+          child: Row(
+            children: [
+              Expanded(
+                child: kDefaultElevatedButtonOutline(
+                  backgroundColor: Colors.white,
+                  textColor: GlobalVariable.secondaryColor,
+                  onPressed: (){},
+                  title: "Lewati"
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: kDefaultElevatedButton(
+                  onPressed: (){
+                    if(_formKey.currentState!.validate()){
+                
+                    }
+                  },
+                  title: "Submit"
+                ),
+              ),
+            ],
           )
         ),
       ),
     );
+  }
+
+
+  File? imageGamera;
+  File? imageCamera;
+  RxString? imagePath;
+  pickImageFromGallery() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked = await picker.pickImage(source: ImageSource.gallery, imageQuality: 30);
+    if(imagePicked != null){
+        imageGamera = File(imagePicked.path);
+        imagePath?.value = imagePicked.path;
+        providerAuthController.listBusinessPhoto.add(imagePath ?? '');
+    }else{
+      debugPrint("Image kosong");
+    }
+  }
+
+  pickImageFromCamera() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? imagePicked = await picker.pickImage(source: ImageSource.camera, imageQuality: 30);
+    if(imagePicked != null){
+        imageCamera = File(imagePicked.path);
+        imagePath?.value = imagePicked.path;
+        providerAuthController.listBusinessPhoto.add(imagePath ?? '');
+    }else{
+      debugPrint("Image kosong");
+    }
   }
 }

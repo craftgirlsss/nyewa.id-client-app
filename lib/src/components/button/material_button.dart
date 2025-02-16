@@ -28,6 +28,7 @@ ElevatedButton kDefaultElevatedButtonIcon({String? title, Function()? onPressed,
 ElevatedButton kDefaultElevatedButtonOutline({String? title, Function()? onPressed, Color? textColor, Color? backgroundColor, IconData? icon}){
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
+      backgroundColor: backgroundColor ?? Colors.white,
       side: BorderSide(
         color: textColor ?? Colors.black45
       ),

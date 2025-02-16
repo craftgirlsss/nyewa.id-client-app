@@ -19,3 +19,11 @@ CupertinoButton kDefaultCupertinoTextButton({String? title, Function()? onPresse
     child: Text(title ?? "OK", style: textStyle.defaultTextStyleBold(color: textColor ?? CupertinoColors.white))
   );
 }
+
+CupertinoButton kDefaultCupertinoChild({Function()? onPressed, Widget? child}){
+  return CupertinoButton(
+    padding: EdgeInsets.zero,
+    onPressed: onPressed,
+    child: child ?? const SizedBox()
+  );
+}

@@ -6,7 +6,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:nyewadotid/src/components/button/elevated_button.dart';
+import 'package:nyewadotid/src/components/button/material_button.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
 import 'package:nyewadotid/src/components/utilities/utilities.dart';

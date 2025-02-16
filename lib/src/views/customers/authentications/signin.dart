@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:nyewadotid/src/components/button/cupertino_button.dart';
-import 'package:nyewadotid/src/components/button/elevated_button.dart';
+import 'package:nyewadotid/src/components/button/material_button.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textformfield/underline_textformfield.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';

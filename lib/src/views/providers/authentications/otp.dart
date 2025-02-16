@@ -7,6 +7,7 @@ import 'package:nyewadotid/src/components/button/cupertino_button.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
 import 'package:nyewadotid/src/components/utilities/utilities.dart';
+import 'package:nyewadotid/src/controllers/providers/auth_controller.dart';
 import 'package:nyewadotid/src/views/providers/authentications/signin.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -20,6 +21,7 @@ class OtpPageProvider extends StatefulWidget {
 
 class _OtpPageProviderState extends State<OtpPageProvider> {
   GlobalTextStyle textStyle = GlobalTextStyle();
+  ProviderAuthController authController = Get.find();
 
   RxInt countdowntime = 60.obs;
   RxBool isLoading = false.obs;
