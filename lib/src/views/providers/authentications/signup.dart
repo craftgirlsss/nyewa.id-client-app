@@ -126,7 +126,7 @@ class _SignUpProviderState extends State<SignUpProvider> {
                           ),
                           onPressed: (){
                             if(_formKey.currentState!.validate()){
-                              Get.to(() => const OtpPageProvider());
+                              Get.to(() => OtpPageProvider(email: emailController.text));
                             }
                           }, child: Text("Sign up", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: Colors.white))
                         ),

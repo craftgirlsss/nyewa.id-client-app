@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -8,9 +7,9 @@ import 'package:nyewadotid/src/components/button/elevated_button.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textformfield/underline_textformfield.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
-import 'package:nyewadotid/src/views/customers/dashboards/mainpage.dart';
 import 'package:nyewadotid/src/views/providers/authentications/forgot.dart';
 import 'package:nyewadotid/src/views/providers/authentications/signup.dart';
+import 'package:nyewadotid/src/views/providers/dashboards/utilities/checking_profile_providers.dart';
 
 class SignInProvider extends StatefulWidget {
   const SignInProvider({super.key});
@@ -101,7 +100,8 @@ class _SignInProviderState extends State<SignInProvider> {
                         width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
                         child: kDefaultElevatedButton(
                           onPressed: (){
-                            Get.to(() => const MainPage());
+                            // if provider first registeration account
+                            Get.to(() => const CheckingProfileProviders());
                           },
                           title: "Sign In"
                         )

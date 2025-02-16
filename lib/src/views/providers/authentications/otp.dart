@@ -2,15 +2,17 @@ import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:nyewadotid/src/components/button/cupertino_button.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
+import 'package:nyewadotid/src/components/utilities/utilities.dart';
+import 'package:nyewadotid/src/views/providers/authentications/signin.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:quiver/async.dart';
 
 class OtpPageProvider extends StatefulWidget {
-  const OtpPageProvider({super.key});
+  const OtpPageProvider({super.key, this.email});
+  final String? email;
 
   @override
   State<OtpPageProvider> createState() => _OtpPageProviderState();
@@ -19,30 +21,37 @@ class OtpPageProvider extends StatefulWidget {
 class _OtpPageProviderState extends State<OtpPageProvider> {
   GlobalTextStyle textStyle = GlobalTextStyle();
 
-  StreamController<ErrorAnimationType>? errorController;
+  RxInt countdowntime = 60.obs;
+  RxBool isLoading = false.obs;
+  String? otp;
+  Timer? _timer;
+
+  void startTimer() {
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(oneSec, (Timer timer) {
+      if (countdowntime.value == 0) {
+        countdowntime(60);
+        timer.cancel();
+      } else {
+        countdowntime.value--;
+      }},
+    );
+  }
+
   // AuthenticationController authenticationController = Get.find();
   bool hasError = false;
   String currentText = "";
   TextEditingController otpController = TextEditingController();
 
-  formattedTime({required int timeInSecond}) {
-    int sec = timeInSecond % 60;
-    int min = (timeInSecond / 60).floor();
-    String minute = min.toString().length <= 1 ? "0$min" : "$min";
-    String second = sec.toString().length <= 1 ? "0$sec" : "$sec";
-    return "$minute : $second";
-  }
-
   @override
   void initState() {
-    errorController = StreamController<ErrorAnimationType>();
     super.initState();
-    startTimer();
+    Future.delayed(const Duration(seconds: 1), () => startTimer());
   }
 
   @override
   void dispose() {
-    errorController?.close();
+    _timer?.cancel();
     otpController.dispose();
     super.dispose();
   }
@@ -54,14 +63,7 @@ class _OtpPageProviderState extends State<OtpPageProvider> {
       onTap: (){
         FocusManager.instance.primaryFocus?.unfocus();
       },
-      child: AnnotatedRegion(
-        value: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark,
-          systemNavigationBarContrastEnforced: true,
-          systemNavigationBarIconBrightness: Brightness.dark,
-          systemNavigationBarColor: Colors.white
-        ),
+      child: Utilities.defaultAnnotatedRegion(
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
@@ -80,7 +82,7 @@ class _OtpPageProviderState extends State<OtpPageProvider> {
                     const SizedBox(height: 30),
                     orientation == Orientation.portrait ? AutoSizeText("Verifikasi Kode OTP", style: textStyle.defaultTextStyleMedium(), minFontSize: 23, maxFontSize: 27) : Center(child: AutoSizeText("Verifikasi Kode OTP", style: textStyle.defaultTextStyleMedium(), minFontSize: 23, maxFontSize: 27)),
                     const SizedBox(height: 10),
-                    orientation == Orientation.portrait ? AutoSizeText("Masukkan kode OTP yang telah kami kirimkan ke alamat email yang telah anda daftarkan", style: textStyle.defaultTextStyle(color: Colors.black54), maxLines: 3) : Center(child: SizedBox(width: size.width / 2, child: AutoSizeText("Masukkan kode OTP yang telah kami kirimkan ke alamat email yang telah anda daftarkan", style: textStyle.defaultTextStyle(color: Colors.black54), maxLines: 3, textAlign: TextAlign.center))),
+                    orientation == Orientation.portrait ? AutoSizeText("Masukkan kode OTP yang telah kami kirimkan ke alamat email ${widget.email} yang telah anda daftarkan", style: textStyle.defaultTextStyle(color: Colors.black54), maxLines: 3) : Center(child: SizedBox(width: size.width / 2, child: AutoSizeText("Masukkan kode OTP yang telah kami kirimkan ke alamat email yang telah anda daftarkan", style: textStyle.defaultTextStyle(color: Colors.black54), maxLines: 3, textAlign: TextAlign.center))),
                     const SizedBox(height: 20),
                     SizedBox(
                       width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
@@ -116,8 +118,6 @@ class _OtpPageProviderState extends State<OtpPageProvider> {
                           ),
                           cursorColor: Colors.black.withOpacity(0.5),
                           animationDuration: const Duration(milliseconds: 300),
-                          // enableActiveFill: true,
-                          errorAnimationController: errorController,
                           controller: otpController,
                           keyboardType: TextInputType.number,
                           boxShadows: const [
@@ -144,18 +144,26 @@ class _OtpPageProviderState extends State<OtpPageProvider> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Tidak menerima kode OTP?", style: textStyle.defaultTextStyleMedium(fontSize: 14, color: Colors.black54)),
-                        const SizedBox(width: 5),
-                        kDefaultCupertinoTextButton(
-                          onPressed: (){},
-                          textColor: GlobalVariable.secondaryColor,
-                          title: "Kirim Ulang"
-                        )
-                      ],
-                    ),
+                    Obx(() {
+                      if(countdowntime.value > 0){
+                        return Text("Mohon tunggu ${countdowntime.value} detik untuk mengirim ulang kode OTP melalui email", style: textStyle.defaultTextStyle(color: Colors.black), textAlign: TextAlign.start);
+                      }
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Tidak menerima kode OTP?", style: textStyle.defaultTextStyleMedium(fontSize: 14, color: Colors.black54)),
+                          const SizedBox(width: 5),
+                          Obx(() => kDefaultCupertinoTextButton(
+                              onPressed: countdowntime.value > 0 ? null : (){
+                                startTimer();
+                              },
+                              textColor: GlobalVariable.secondaryColor,
+                              title: "Kirim Ulang"
+                            ),
+                          )
+                        ],
+                      );
+                    }),
                     const SizedBox(height: 10),
                     SizedBox(
                       width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
@@ -165,7 +173,7 @@ class _OtpPageProviderState extends State<OtpPageProvider> {
                           backgroundColor: GlobalVariable.secondaryColor,
                         ),
                         onPressed: (){
-
+                          Get.offAll(() => const SignInProvider());
                         },
                         child: Text("Konfirmasi", style: textStyle.defaultTextStyleMedium(fontSize: 16, color: Colors.white))
                       ),
@@ -179,29 +187,5 @@ class _OtpPageProviderState extends State<OtpPageProvider> {
         ),
       ),
     );
-  }
-
-  int start = 60;
-  int current = 60;
-
-  void startTimer() {
-    CountdownTimer countDownTimer = CountdownTimer(
-      Duration(seconds: start),
-      const Duration(seconds: 1),
-    );
-
-    var sub = countDownTimer.listen(null);
-    sub.onData((duration) {
-      if(mounted){
-        setState(() {
-          current = start - duration.elapsed.inSeconds;
-        });
-      }
-    });
-
-    sub.onDone(() {
-      if(kDebugMode) print("Done");
-      sub.cancel();
-    });
   }
 }
