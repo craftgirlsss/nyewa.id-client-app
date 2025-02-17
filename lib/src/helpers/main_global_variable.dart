@@ -2,8 +2,8 @@ class MainGlobalVariable {
   static String appName = "nyewa.id";
   static String baseURL = "https://nyewadotid.nextjiesdev.site/api/v1";
   static List listTipeBiaya = ["Per Jam", "Per Hari", "Per Layanan"];
-  static List jenisBisnis = ["Service AC", "Instalasi Listrik", "Tenda Pesta", "Sound System", "Mekanik Mobil", "Lainnya"];
-  static List hariBuka = ["Setiap Hari", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
+  static List jenisBisnis = ["Service AC", "Instalasi Listrik", "Tenda Pesta", "Sound System", "Mekanik Mobil", "Sedot WC", "Kebersihan", "Lainnya"];
+  static List hariBuka = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
   static String privacyPolicy = """
                   KEBIJAKAN PRIVASI
         Selamat datang di website resmi PT International Business Futures (https://ibftrader.com/) yang dikembangkan dan dikelola oleh PT International Business Futures melalui (PT. All Media Indo). Kami berkomitmen untuk melindungi privasi Anda dan menjaga informasi pribadi Anda tetap aman. Kebijakan privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi yang Anda berikan saat mengakses atau menggunakan layanan kami. Dengan mengakses atau menggunakan layanan kami, Anda menyetujui praktik yang dijelaskan dalam kebijakan privasi ini.

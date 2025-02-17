@@ -8,11 +8,15 @@ import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
 
 class UnderlineTextformfield extends StatefulWidget {
-  const UnderlineTextformfield({super.key, this.controller, this.keyboardType, this.label, this.errorText, this.enable, this.readOnly, this.onTap, this.iconData, this.isPasswordField, this.maxLines, this.minLines, this.addCopyAction});
+  const UnderlineTextformfield({super.key, this.controller, this.keyboardType, this.label, this.errorText, this.enable, this.readOnly, this.onTap, this.iconData, this.isPasswordField, this.maxLines, this.minLines, this.addCopyAction, this.hintText, this.addSuffixButton, this.onTapSuffixButton, this.suffixIcon});
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final String? label;
+  final String? hintText;
   final String? errorText;
+  final bool? addSuffixButton;
+  final IconData? suffixIcon;
+  final Function()? onTapSuffixButton;
   final bool? enable;
   final bool? readOnly;
   final IconData? iconData;
@@ -51,7 +55,12 @@ class _UnderlineTextformfieldState extends State<UnderlineTextformfield> {
         return null;
       },
       decoration: InputDecoration(
-        suffixIcon: widget.addCopyAction == true ? CupertinoButton(
+        hintText: widget.hintText ?? "",
+        hintStyle: TextStyle(color: GlobalVariable.secondaryColor.withOpacity(0.5), fontSize: 12),
+        suffixIcon: widget.addSuffixButton == true ? CupertinoButton(
+          onPressed: widget.onTapSuffixButton,
+          child: Icon(widget.suffixIcon, color: GlobalVariable.secondaryColor)
+        ) : widget.addCopyAction == true ? CupertinoButton(
           onPressed: () async {
             await Clipboard.setData(ClipboardData(text: widget.controller!.text)).then((result){
               Get.snackbar("Berhasil", "Berhasil copy Kode Promosi", backgroundColor: Colors.green, colorText: Colors.white);

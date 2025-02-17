@@ -1,8 +1,14 @@
+import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:intl/intl.dart';
+import 'package:nyewadotid/src/components/button/cupertino_button.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
 
@@ -105,6 +111,152 @@ class Utilities {
                 onPressed: onPressed, label: Text("Ambil Voucher", style: textStyle.defaultTextStyleMedium(color: color ?? GlobalVariable.secondaryColor.withOpacity(0.7))), icon: Icon(Icons.keyboard_arrow_right, color: color ?? GlobalVariable.secondaryColor.withOpacity(0.7)), iconAlignment: IconAlignment.end)
           ],
         ),
+      ),
+    );
+  }
+
+  static Widget profilePhoto({String? urlPhoto, Function()? onPressed}){
+    return Stack(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(5),
+          color: Colors.white,
+          child: Container(
+            width: 120,
+            height: 120,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
+              image: DecorationImage(image: urlPhoto == null ? const AssetImage('assets/images/no_image.png') : FileImage(File(urlPhoto)), fit: BoxFit.cover),
+              boxShadow: const [BoxShadow(color: GlobalVariable.secondaryColor, blurRadius: 10)],
+              border: Border.all(color: Colors.black12, width: 0.4),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: kDefaultCupertinoChild(
+            onPressed: onPressed,
+            child: const Icon(CupertinoIcons.add_circled_solid, size: 45, color: GlobalVariable.secondaryColor)
+          )
+        )
+      ],
+    );
+  }
+}
+
+class SchedulePicker extends StatefulWidget {
+  const SchedulePicker({super.key, this.dayName});
+  final String? dayName;
+
+  @override
+  State<SchedulePicker> createState() => _SchedulePickerState();
+}
+
+class _SchedulePickerState extends State<SchedulePicker> {
+  RxBool isActive = false.obs;
+  RxString start = "".obs;
+  RxString end = "".obs;
+
+  Time _timeStart = Time(hour: 09, minute: 00, second: 00);
+  Time _timeEnd = Time(hour: 05, minute: 00, second: 00);
+  bool iosStyle = true;
+
+  void onTimeChangedStart(Time newTime) {
+    setState(() {
+      _timeStart = newTime;
+    });
+  }
+
+  void onTimeChangedEnd(Time newTime) {
+    setState(() {
+      _timeEnd = newTime;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      decoration: const BoxDecoration(
+        border: Border(
+          top: BorderSide(color: GlobalVariable.secondaryColor, width: 0.7),
+        )
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            color: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(widget.dayName ?? "Senin", style: TextStyle(fontSize: 15, color: GlobalVariable.secondaryColor.withOpacity(0.9))),
+                Obx(() => isActive.value ? Row(
+                    children: [
+                      Obx(() => 
+                        kDefaultCupertinoTextButton(
+                          title: start.value == "" ? "09:00 AM" : start.value,
+                          onPressed: (){
+                            Navigator.of(context).push(
+                              showPicker(
+                                context: context,
+                                value: _timeStart,
+                                sunrise: const TimeOfDay(hour: 6, minute: 0), // optional
+                                sunset: const TimeOfDay(hour: 18, minute: 0), // optional
+                                duskSpanInMinutes: 120, // optional
+                                onChange: onTimeChangedStart,
+                                onChangeDateTime: (DateTime p0) {
+                                  start.value = DateFormat().add_jm().format(p0);
+                                }
+                              ),
+                            );
+                          },
+                          textColor: GlobalVariable.secondaryColor,
+                        ),
+                      ),
+                      const Text(" - ", style: TextStyle(color: GlobalVariable.secondaryColor, fontWeight: FontWeight.bold)),
+                      Obx(() =>
+                        kDefaultCupertinoTextButton(
+                          title: end.value == "" ? "05:00 PM" : end.value,
+                          onPressed: (){
+                            Navigator.of(context).push(
+                              showPicker(
+                                context: context,
+                                value: _timeEnd,
+                                sunrise: const TimeOfDay(hour: 6, minute: 0), // optional
+                                sunset: const TimeOfDay(hour: 18, minute: 0), // optional
+                                duskSpanInMinutes: 120, // optional
+                                onChange: onTimeChangedEnd,
+                                onChangeDateTime: (DateTime p0) {
+                                  end.value = DateFormat().add_jm().format(p0);
+                                }
+                              ),
+                            );
+                          },
+                          textColor: GlobalVariable.secondaryColor,
+                        ),
+                      ),
+                    ],
+                  ) : Text("Tutup", style: TextStyle(fontSize: 13, color: GlobalVariable.secondaryColor.withOpacity(0.6))),
+                )
+              ],
+            ),
+          ),
+          Obx(() => 
+            Switch(
+              trackOutlineColor: const WidgetStatePropertyAll(GlobalVariable.secondaryColor),
+              activeColor: GlobalVariable.secondaryColor,
+              thumbColor: const WidgetStatePropertyAll(GlobalVariable.secondaryColor),
+              inactiveTrackColor: GlobalVariable.backgroundColor,
+              value: isActive.value, 
+              onChanged: (value) {
+                isActive.value = !isActive.value;
+              },
+            )
+          )
+        ],
       ),
     );
   }
