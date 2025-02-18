@@ -16,6 +16,7 @@ import 'package:nyewadotid/src/controllers/providers/auth_controller.dart';
 import 'package:nyewadotid/src/helpers/generate_random_token.dart';
 import 'package:nyewadotid/src/helpers/location_getter.dart';
 import 'package:nyewadotid/src/helpers/main_global_variable.dart';
+import 'package:nyewadotid/src/views/providers/dashboards/mainpage_provider.dart';
 import 'package:nyewadotid/src/views/providers/dashboards/utilities/operational_time.dart';
 
 class CheckingProfileProviders extends StatefulWidget {
@@ -380,7 +381,9 @@ class _CheckingProfileProvidersState extends State<CheckingProfileProviders> {
                 child: kDefaultElevatedButtonOutline(
                   backgroundColor: Colors.white,
                   textColor: GlobalVariable.secondaryColor,
-                  onPressed: (){},
+                  onPressed: (){
+                    Get.offAll(() => const MainpageProvider());
+                  },
                   title: "Lewati"
                 ),
               ),

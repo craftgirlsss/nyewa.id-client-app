@@ -15,6 +15,7 @@ class _OperationalTimeState extends State<OperationalTime> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         forceMaterialTransparency: true,
