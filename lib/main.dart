@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'nyewa.id',
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
         textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
             textStyle: WidgetStatePropertyAll(textStyle.defaultTextStyleBold(color: GlobalVariable.secondaryColor))

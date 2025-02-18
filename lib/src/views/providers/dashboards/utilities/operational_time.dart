@@ -5,7 +5,8 @@ import 'package:nyewadotid/src/components/utilities/utilities.dart';
 import 'package:nyewadotid/src/helpers/main_global_variable.dart';
 
 class OperationalTime extends StatefulWidget {
-  const OperationalTime({super.key});
+  const OperationalTime({super.key, this.fromSettings});
+  final bool? fromSettings;
 
   @override
   State<OperationalTime> createState() => _OperationalTimeState();

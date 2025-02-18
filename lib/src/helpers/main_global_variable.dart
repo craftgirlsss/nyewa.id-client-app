@@ -2,7 +2,7 @@ class MainGlobalVariable {
   static String appName = "nyewa.id";
   static String baseURL = "https://nyewadotid.nextjiesdev.site/api/v1";
   static List listTipeBiaya = ["Per Jam", "Per Hari", "Per Layanan"];
-  static List jenisBisnis = ["Service AC", "Instalasi Listrik", "Tenda Pesta", "Sound System", "Mekanik Mobil", "Sedot WC", "Kebersihan", "Lainnya"];
+  static List jenisBisnis = ["Service AC", "Instalasi Listrik", "Tenda Pesta", "Sound System", "Mekanik Mobil", "Sedot WC", "Kebersihan", "Tukang Bangunan", "Lainnya"];
   static List hariBuka = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
   static String privacyPolicy = """
                   KEBIJAKAN PRIVASI
@@ -32,6 +32,6 @@ class MainGlobalVariable {
 PT. International Business Futures
 PASKAL HYPER SQUARE BLOK D NO.45-46 JL. H.O.S COKROAMINOTO NO.25-27 BANDUNG, JAWA BARAT – 40181
 Telepon: (022) 86061128
-Email: support@ibftrader.com
+Email: support@nyewadotid.com
 """;
 }

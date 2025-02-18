@@ -7,6 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/listtile/menu_listtile.dart';
 import 'package:nyewadotid/src/components/utilities/utilities.dart';
+import 'package:nyewadotid/src/views/providers/dashboards/settings/tambah_promosi_page.dart';
+import 'package:nyewadotid/src/views/providers/dashboards/utilities/operational_time.dart';
 
 class SettingsProvider extends StatefulWidget {
   const SettingsProvider({super.key});
@@ -78,12 +80,16 @@ class _SettingsProviderState extends State<SettingsProvider> {
                       leadingIcon: Bootstrap.shop_window
                     ),
                     MenuListtile.menuListtile(
-                      onPressed: (){},
+                      onPressed: (){
+                        Get.to(() => const TambahPromosiPage());
+                      },
                       menuName: "Tambah Promosi Layanan",
                       leadingIcon: MingCute.coupon_line
                     ),
                     MenuListtile.menuListtile(
-                      onPressed: (){},
+                      onPressed: (){
+                        Get.to(() => const OperationalTime(fromSettings: true));
+                      },
                       menuName: "Ubah Jam Operasional Layanan",
                       leadingIcon: CupertinoIcons.clock,
                       isLastMenu: true
