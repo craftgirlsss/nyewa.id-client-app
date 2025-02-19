@@ -31,6 +31,7 @@ class _SettingsProviderState extends State<SettingsProvider> {
           return <Widget>[
             const SliverAppBar(
               pinned: true,
+              scrolledUnderElevation: 0,
               stretchTriggerOffset: 200,
               expandedHeight: 100.0,
               backgroundColor: Colors.white,
@@ -92,7 +93,12 @@ class _SettingsProviderState extends State<SettingsProvider> {
                       },
                       menuName: "Ubah Jam Operasional Layanan",
                       leadingIcon: CupertinoIcons.clock,
-                      isLastMenu: true
+                    ),
+                    MenuListtile.menuListtile(
+                      onPressed: (){},
+                      menuName: "Keluar",
+                      isLastMenu: true,
+                      leadingIcon: Iconsax.logout_1_outline
                     ),
                   ],
                 ),
@@ -128,13 +134,8 @@ class _SettingsProviderState extends State<SettingsProvider> {
                     MenuListtile.menuListtile(
                       onPressed: (){},
                       menuName: "Kebijakan Privasi",
-                      leadingIcon: CupertinoIcons.info_circle
-                    ),
-                    MenuListtile.menuListtile(
-                      onPressed: (){},
                       isLastMenu: true,
-                      menuName: "Keluar",
-                      leadingIcon: Iconsax.logout_1_outline
+                      leadingIcon: CupertinoIcons.info_circle
                     ),
                   ],
                 ),

@@ -45,7 +45,7 @@ class _MainpageProviderState extends State<MainpageProvider> {
               label: 'Order',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Bootstrap.messenger),
+              icon: Icon(Bootstrap.chat),
               label: 'Messages',
             ),
             BottomNavigationBarItem(
@@ -57,10 +57,10 @@ class _MainpageProviderState extends State<MainpageProvider> {
           elevation: 0,
           showSelectedLabels: true,
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           unselectedFontSize: 12,
           selectedItemColor: GlobalVariable.secondaryColor,
-          unselectedIconTheme: const IconThemeData(color: Colors.black26),
+          unselectedIconTheme: IconThemeData(color: GlobalVariable.colorShade),
           selectedIconTheme: const IconThemeData(size: 25),
           unselectedItemColor: GlobalVariable.secondaryColor.withOpacity(0.6),
           onTap: _onItemTapped,

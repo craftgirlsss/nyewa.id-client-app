@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:nyewadotid/src/components/button/cupertino_button.dart';
-import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textformfield/underline_textformfield.dart';
 
 class TambahPromosiPage extends StatefulWidget {

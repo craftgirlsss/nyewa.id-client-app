@@ -20,6 +20,7 @@ class _IndexChatState extends State<IndexChat> {
           slivers: [
             const SliverAppBar(
               pinned: true,
+              scrolledUnderElevation: 0,
               stretchTriggerOffset: 200,
               expandedHeight: 100.0,
               backgroundColor: Colors.white,

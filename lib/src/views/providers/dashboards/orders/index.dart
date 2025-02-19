@@ -37,6 +37,7 @@ class _OrderProviderState extends State<OrderProvider> with SingleTickerProvider
             const SliverAppBar(
               pinned: true,
               elevation: 0,
+              scrolledUnderElevation: 0,
               stretchTriggerOffset: 200,
               expandedHeight: 100.0,
               backgroundColor: Colors.white,
@@ -52,8 +53,10 @@ class _OrderProviderState extends State<OrderProvider> with SingleTickerProvider
                   indicatorSize: TabBarIndicatorSize.tab,
                   indicatorColor: GlobalVariable.secondaryColor,
                   unselectedLabelColor: Colors.black38,
+                  indicatorWeight: 2,
                   labelColor: GlobalVariable.secondaryColor,
                   controller: _tabController,
+                  labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   tabs: const<Widget> [
                     Tab(text: 'Terbaru'),
                     Tab(text: 'Aktif'),

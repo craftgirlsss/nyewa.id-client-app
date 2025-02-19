@@ -13,7 +13,7 @@ class Bookings extends StatefulWidget {
 
 class _BookingsState extends State<Bookings> {
   final textStyle = GlobalTextStyle();
-  final bookedCard = BookingCard();
+  final bookedCard = BookingCardProvider();
   var menuSelected = 0.obs;
   var isLoading = false.obs;
 
