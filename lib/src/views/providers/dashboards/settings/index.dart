@@ -96,6 +96,11 @@ class _SettingsProviderState extends State<SettingsProvider> {
                     ),
                     MenuListtile.menuListtile(
                       onPressed: (){},
+                      menuName: "Berhenti dari Program",
+                      leadingIcon: Iconsax.close_circle_outline
+                    ),
+                    MenuListtile.menuListtile(
+                      onPressed: (){},
                       menuName: "Keluar",
                       isLastMenu: true,
                       leadingIcon: Iconsax.logout_1_outline

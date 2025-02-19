@@ -70,9 +70,9 @@ class _OrderProviderState extends State<OrderProvider> with SingleTickerProvider
         body: TabBarView(
           controller: _tabController,
           children: const <Widget>[
-            OrderTabTerbaru(),
-            OrderTabRuning(),
-            OrderTabDone(),
+            OrderTabTerbaruProvider(),
+            OrderTabRuningProvider(),
+            OrderTabDoneProvider(),
           ],
         ),
       ),

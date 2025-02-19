@@ -41,6 +41,7 @@ class _CheckingProfileProvidersState extends State<CheckingProfileProviders> {
   TextEditingController deskripsi = TextEditingController();
   TextEditingController kodePromosi = TextEditingController();
   TextEditingController providerLocation = TextEditingController();
+  TextEditingController nomorRekening = TextEditingController();
 
   @override
   void initState() {
@@ -56,6 +57,7 @@ class _CheckingProfileProvidersState extends State<CheckingProfileProviders> {
     deskripsi.dispose();
     kodePromosi.dispose();
     providerLocation.dispose();
+    nomorRekening.dispose();
     super.dispose();
   }
 
@@ -173,6 +175,16 @@ class _CheckingProfileProvidersState extends State<CheckingProfileProviders> {
                       controller: biaya,
                       label: "Biaya",
                       iconData: EvaIcons.pricetags_outline,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  SizedBox(
+                    width: orientation == Orientation.portrait ? double.infinity : size.width / 2,
+                    child: UnderlineTextformfield(
+                      controller: nomorRekening,
+                      keyboardType: TextInputType.number,
+                      label: "Nomor Rekening Bank",
+                      iconData: Clarity.bank_line,
                     ),
                   ),
                   const SizedBox(height: 5),

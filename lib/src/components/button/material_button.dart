@@ -38,3 +38,36 @@ ElevatedButton kDefaultElevatedButtonOutline({String? title, Function()? onPress
     child: Text(title ?? "OK", style: textStyle.defaultTextStyleBold(color: textColor ?? Colors.black45))
   );
 }
+
+
+// Square rounded button
+ElevatedButton kDefaultElevatedButtonSquare({String? title, Function()? onPressed, Color? textColor, Color? backgroundColor}){
+  return ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8)
+      ),
+      backgroundColor: backgroundColor ?? GlobalVariable.secondaryColor
+    ),
+    onPressed: onPressed, 
+    child: Text(title ?? "OK", style: TextStyle(color: textColor ?? Colors.white))
+  );
+}
+
+// Square outlined rounded button
+ElevatedButton kDefaultElevatedButtonOutlineSquare({String? title, Function()? onPressed, Color? textColor, Color? backgroundColor, IconData? icon}){
+  return ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: backgroundColor ?? Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8)
+      ),
+      side: BorderSide(
+        color: textColor ?? Colors.black45
+      ),
+      elevation: 0,
+    ),
+    onPressed: onPressed,
+    child: Text(title ?? "OK", style: TextStyle(color: textColor ?? Colors.black45))
+  );
+}

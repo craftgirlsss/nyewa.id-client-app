@@ -1,11 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
+import 'package:nyewadotid/src/components/button/material_button.dart';
 import 'package:nyewadotid/src/components/global/index.dart';
 import 'package:nyewadotid/src/components/textsyle/index.dart';
 import 'package:nyewadotid/src/components/utilities/utilities.dart';
+import 'package:nyewadotid/src/helpers/url_launcher.dart';
 
 class BookingCardCustomer {
   final textStyle = GlobalTextStyle();
@@ -300,7 +303,7 @@ class BookingCardProvider extends BookingCardCustomer{
   CupertinoButton cardItemBookedProvider(
     BuildContext context, {
       String? titleBooked, 
-      String? bookedID, 
+      String? bookedID,
       int? statusBooked, 
       String? customerName, 
       TimeOfDay? startTime, 
@@ -313,9 +316,13 @@ class BookingCardProvider extends BookingCardCustomer{
       String? urlImageCustomer, 
       String? customerLocation, 
       bool? isHistory, 
+      double? latitude,
+      double? longitude,
       DateTime? arrivalDateTime, 
-      Function()? onPressedPesan,
+      Function()? onPressedChat,
       Function()? onPressed,
+      Function()? onPressedGetOrder,
+      Function()? onPressedRejectOrder,
     }){
     /*
      0  : new order
@@ -392,6 +399,13 @@ class BookingCardProvider extends BookingCardCustomer{
               subtitle: AutoSizeText("Tanggal Pelaksanaan Layanan", style: textStyle.defaultTextStyleMedium(color: Colors.black45), minFontSize: 13, maxFontSize: 14),
             ),
             ListTile(
+              onTap: () {
+                if(latitude == null || longitude == null){
+                  Get.snackbar("Gagal", "Gagal mendapatkan lokasi customer", backgroundColor: Colors.red, colorText: Colors.white);
+                }else{
+                  urlLauncher(urls: "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude");
+                }
+              },
               contentPadding: EdgeInsets.zero,
               leading: CircleAvatar(
                 backgroundColor: GlobalVariable.colorShade,
@@ -407,9 +421,10 @@ class BookingCardProvider extends BookingCardCustomer{
                 backgroundColor: urlImageCustomer != null ? Colors.white : Colors.grey.shade200,
               ),
               title: AutoSizeText(customerName ?? "Nama Customer tidak diketahui", style: textStyle.defaultTextStyleMedium(), maxFontSize: 15, minFontSize: 14),
-              subtitle: customerMessage == null ? null : AutoSizeText(customerMessage, style: textStyle.defaultTextStyleMedium(color: Colors.black45), minFontSize: 13, maxFontSize: 14),
-              trailing: isHistory == true ? null : ElevatedButton(
-                onPressed: onPressedPesan,
+              subtitle: customerMessage == null ? null : AutoSizeText(customerMessage, style: textStyle.defaultTextStyleMedium(color: Colors.black45), minFontSize: 11, maxFontSize: 12, maxLines: 3),
+              isThreeLine: true,
+              trailing: statusBooked == 1 || statusBooked == null ? null : isHistory == true ? null : ElevatedButton(
+                onPressed: onPressedChat,
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   backgroundColor: GlobalVariable.secondaryColor,
@@ -420,6 +435,23 @@ class BookingCardProvider extends BookingCardCustomer{
                 child: const Text("Chat", style: TextStyle(color: Colors.white))
               ),
             ),
+            statusBooked == 0 || statusBooked == null ? Row(
+              children: [
+                Expanded(child: kDefaultElevatedButtonOutlineSquare(
+                  onPressed: onPressedRejectOrder,
+                  backgroundColor: Colors.white,
+                  textColor: GlobalVariable.secondaryColor,
+                  title: "Tolak Order"
+                )),
+                const SizedBox(width: 5),
+                Expanded(child: kDefaultElevatedButtonSquare(
+                  backgroundColor: GlobalVariable.secondaryColor,
+                  textColor: Colors.white,
+                  onPressed: onPressedGetOrder,
+                  title: "Ambil Order"
+                ))
+              ],
+            ) : const SizedBox()
           ],
         ),
       )

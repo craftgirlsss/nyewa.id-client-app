@@ -42,14 +42,17 @@ class _MainpageProviderState extends State<MainpageProvider> {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Bootstrap.bag_check),
+              activeIcon: Icon(Bootstrap.bag_check_fill),
               label: 'Order',
             ),
             BottomNavigationBarItem(
               icon: Icon(Bootstrap.chat),
+              activeIcon: Icon(Bootstrap.chat_fill),
               label: 'Messages',
             ),
             BottomNavigationBarItem(
               icon: Icon(Bootstrap.gear),
+              activeIcon: Icon(Bootstrap.gear_fill),
               label: 'Settings',
             ),
           ],
@@ -60,9 +63,9 @@ class _MainpageProviderState extends State<MainpageProvider> {
           backgroundColor: Colors.white,
           unselectedFontSize: 12,
           selectedItemColor: GlobalVariable.secondaryColor,
-          unselectedIconTheme: IconThemeData(color: GlobalVariable.colorShade),
+          unselectedIconTheme: IconThemeData(color: GlobalVariable.secondaryColor.withOpacity(0.8)),
           selectedIconTheme: const IconThemeData(size: 25),
-          unselectedItemColor: GlobalVariable.secondaryColor.withOpacity(0.6),
+          unselectedItemColor: GlobalVariable.secondaryColor.withOpacity(0.8),
           onTap: _onItemTapped,
         ),
       ),
